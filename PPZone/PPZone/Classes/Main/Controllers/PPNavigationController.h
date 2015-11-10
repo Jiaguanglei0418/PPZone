@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  PPNavigationController.h
 //  PPZone
 //
 //  Created by jiaguanglei on 15/11/9.
@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
-
+@interface PPNavigationController : UINavigationController
 
 @end
-

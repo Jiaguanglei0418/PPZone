@@ -1,0 +1,25 @@
+//
+//  PrefixHeader.pch
+//  PPZone
+//
+//  Created by jiaguanglei on 15/11/9.
+//  Copyright © 2015年 roseonly. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+#import "UIView+Extension.h"
+#import "PPConst.h"
+
+
+
+#ifdef DEBUG // 开发阶段
+#define PPPLog(...) NSLog(__VA_ARGS__)
+
+#else
+#define PPPLog(...)
+
+#endif
+
+#endif /* PrefixHeader_pch */

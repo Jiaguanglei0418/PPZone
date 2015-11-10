@@ -1,5 +1,5 @@
 //
-//  AppDelegate.h
+//  PPMessageDetailViewController.h
 //  PPZone
 //
 //  Created by jiaguanglei on 15/11/9.
@@ -8,10 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
-
-@property (strong, nonatomic) UIWindow *window;
-
+@interface PPMessageDetailViewController : UIViewController
 
 @end
-

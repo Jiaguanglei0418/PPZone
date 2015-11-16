@@ -13,7 +13,9 @@
 #import "PPProfileViewController.h"
 
 #import "PPNavigationController.h"
-@interface PPTabBarController ()
+#import "MyButton.h"
+#import "PPTabBar.h"
+@interface PPTabBarController ()<PPTabBarDelegate>
 
 @end
 
@@ -27,7 +29,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
    
-    // 3. 设置子控制器
+    // 1. 设置子控制器
     PPHomeViewController *homeVc = [[PPHomeViewController alloc] init];
     PPMessageViewController *messageVc = [[PPMessageViewController alloc] init];
     PPDiscoverViewController *discoverVc = [[PPDiscoverViewController alloc] init];
@@ -36,19 +38,26 @@
     [self addChildVc:homeVc Title:@"首页" image:[UIImage imageNamed:@"tabbar_home_os7"] selectedImage:[UIImage imageNamed:@"tabbar_home_selected_os7"]];
     [self addChildVc:messageVc Title:@"消息" image:[UIImage imageNamed:@"tabbar_message_center_os7"] selectedImage:[UIImage imageNamed:@"tabbar_message_center_selected_os7"]];
     
+     /**  设置发微博 ***/
+//    [self addChildVc:[[UIViewController alloc] init] Title:@"发微博" image:nil selectedImage:nil];
+    
     [self addChildVc:discoverVc Title:@"发现" image:[UIImage imageNamed:@"tabbar_discover_os7"] selectedImage:[UIImage imageNamed:@"tabbar_discover_selected_os7"]];
     [self addChildVc:profileVc Title:@"我的" image:[UIImage imageNamed:@"tabbar_profile_os7"] selectedImage:[UIImage imageNamed:@"tabbar_profile_selected_os7"]];
     
     
+    // 2. 更换自定义tabBar  ---  KVC 可以修改只读属性
+     /**  可以修改只读 属性 ***/
+//    self.tabBar = [[PPTabBar alloc] init];
+    PPTabBar *tabBar = [[PPTabBar alloc] init];
+    tabBar.delegate = self;
+    [self setValue:tabBar forKeyPath:@"tabBar"];
     
-    
-    //    tabBarCon.viewControllers = @[viewCon1, viewCon2, viewCon3, viewCon4, viewCon5];
-//    [tabBarCon addChildViewController:homeVc];
-//    [tabBarCon addChildViewController:messageVc];
-//    [tabBarCon addChildViewController:discoverVc];
-//    [tabBarCon addChildViewController:profileVc];
-    
-    
+}
+
+#pragma mark - PPTabBarDelegate
+- (void)tabBarDidClickedPlusButton:(PPTabBar *)tabBar
+{
+    [self presentViewController:[[UIViewController alloc] init] animated:YES completion:nil];
 }
 
 /**

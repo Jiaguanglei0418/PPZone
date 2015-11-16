@@ -62,6 +62,11 @@ extern NSString *const PPAlipayResultURLKey;
 #define PP_SCREEN_RECT [UIScreen mainScreen].bounds
 
 
+/**
+ *  4. weakSelf
+ */
+#define WS(weakSelf)  __weak typeof(self)weakSelf = self
+
 
 // ---------------------------- 打印日志  ----------------------------------
 // 自定义log

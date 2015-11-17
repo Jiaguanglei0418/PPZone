@@ -46,11 +46,16 @@
     
     
     // 2. 更换自定义tabBar  ---  KVC 可以修改只读属性
-     /**  可以修改只读 属性 ***/
-//    self.tabBar = [[PPTabBar alloc] init];
+    /**  可以修改只读 属性 ***/
+    //    self.tabBar = [[PPTabBar alloc] init];
     PPTabBar *tabBar = [[PPTabBar alloc] init];
-    tabBar.delegate = self;
+    //    tabBar.delegate = self;
+    /**  修改tabBar 系统属性, 默认已经设置代理 ***/
     [self setValue:tabBar forKeyPath:@"tabBar"];
+    //   如果修改完属性以后, 再次修改属性(设置代理), 就会报错.
+    // error: 'Changing the delegate of a tab bar managed by a tab bar controller is not allowed.'
+    //   不允许修改tabBar的delegate属性, 应该写到设置之前;
+    //    tabBar.delegate = self;
     
 }
 

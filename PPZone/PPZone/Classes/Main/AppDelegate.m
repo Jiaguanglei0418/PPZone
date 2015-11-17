@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "PPTabBarController.h"
+#import "PPNewFeatherViewController.h"
 
 
 @interface AppDelegate ()
@@ -23,7 +24,25 @@
     
     // 2. 设置根控制器
     UITabBarController *tabBarCon = [PPTabBarController tabBarController];
-    self.window.rootViewController = tabBarCon;
+    // 新特性
+    PPNewFeatherViewController *newFeather = [[PPNewFeatherViewController alloc] init];
+    
+    /**  版本判断 ***/
+    NSString *versionKey = @"CFBundleVersion";
+    // 上一次使用版本号(存储在沙盒中的版本号)
+    NSString *lastVersion = [[NSUserDefaults standardUserDefaults] objectForKey:versionKey];
+    // 获取当前App版本号
+    NSString *currentVersion = [NSBundle mainBundle].infoDictionary[versionKey];
+    
+    if (![currentVersion isEqualToString:lastVersion]) { // 显示新特性
+        // 将版本号存进沙盒
+        [[NSUserDefaults standardUserDefaults] setObject:currentVersion forKey:versionKey];
+        // 同步到沙盒
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        // 设置根控制器
+        self.window.rootViewController = newFeather;
+        
+    }else self.window.rootViewController = tabBarCon;
  
     [self.window makeKeyAndVisible];
     return YES;

@@ -111,7 +111,6 @@
     // 2. modal
     // 3. 设置根控制器
     [UIApplication sharedApplication].keyWindow.rootViewController = [[PPTabBarController alloc] init];
-    
 }
 
 #pragma mark -  UIScrollViewDelegate

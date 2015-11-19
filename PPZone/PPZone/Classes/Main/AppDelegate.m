@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 #import "PPTabBarController.h"
 #import "PPNewFeatherViewController.h"
-
+#import "SDWebImageManager.h"
 
 @interface AppDelegate ()
 
@@ -48,6 +48,16 @@
     return YES;
 }
 
+- (void)applicationDidReceiveMemoryWarning:(UIApplication *)application
+{
+    SDWebImageManager *mgr = [SDWebImageManager sharedManager];
+
+    // 1. 取消下载
+    [mgr cancelAll];
+    // 2. 清除内存中的所有图片
+    [mgr.imageCache clearMemory];
+    [mgr.imageCache clearDisk];
+}
 
 
 - (void)applicationWillResignActive:(UIApplication *)application {

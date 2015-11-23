@@ -20,7 +20,7 @@
     self = [super initWithFrame:frame];
     if (self) {
          /**  添加加号按钮 ***/
-        MyButton *plusBtn = [MyButton buttonWithFrame:CGRectZero type:UIButtonTypeCustom title:nil titleColor:nil image:[UIImage imageNamed:@"tabbar_compose_icon_add_os7"] selectedImage:[UIImage imageNamed:@"tabbar_compose_icon_add_highlighted_os7"] backgroundImage:[UIImage imageNamed:@"tabbar_compose_button_os7"] andBlock:^(MyButton *button) {
+        MyButton *plusBtn = [MyButton buttonWithFrame:CGRectZero type:UIButtonTypeCustom title:nil titleColor:nil image:[UIImage imageNamed:@"tabbar_compose_icon_add"] selectedImage:[UIImage imageNamed:@"tabbar_compose_icon_add_highlighted"] backgroundImage:[UIImage imageNamed:@"tabbar_compose_button"] andBlock:^(MyButton *button) {
         }];
         
         plusBtn.size = plusBtn.currentBackgroundImage.size;

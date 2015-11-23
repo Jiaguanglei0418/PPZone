@@ -35,13 +35,10 @@
 		920893F51BFDD337003560D6 /* UITextView+Extention.m in Sources */ = {isa = PBXBuildFile; fileRef = 920893C41BFDD337003560D6 /* UITextView+Extention.m */; };
 		920893F61BFDD337003560D6 /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 920893C71BFDD337003560D6 /* UIView+Extension.m */; };
 		920893F71BFDD337003560D6 /* UIViewController+Extention.m in Sources */ = {isa = PBXBuildFile; fileRef = 920893CA1BFDD337003560D6 /* UIViewController+Extention.m */; };
-		920893F81BFDD337003560D6 /* UIViewController+HUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 920893CC1BFDD337003560D6 /* UIViewController+HUD.m */; };
 		920893F91BFDD337003560D6 /* UIWindow+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 920893CF1BFDD337003560D6 /* UIWindow+Extension.m */; };
 		920893FA1BFDD337003560D6 /* MBProgressHUD+MJ.m in Sources */ = {isa = PBXBuildFile; fileRef = 920893D31BFDD337003560D6 /* MBProgressHUD+MJ.m */; };
-		920893FB1BFDD337003560D6 /* PPNewFeatherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 920893D81BFDD337003560D6 /* PPNewFeatherViewController.m */; };
 		920893FC1BFDD337003560D6 /* PPProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 920893DA1BFDD337003560D6 /* PPProfileViewController.m */; };
 		920894051BFDDBB2003560D6 /* PPDiscoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 920894001BFDDBB2003560D6 /* PPDiscoverViewController.m */; };
-		920894061BFDDBB2003560D6 /* PPNewFeatherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 920894021BFDDBB2003560D6 /* PPNewFeatherViewController.m */; };
 		92BDFE161BF06ED300FF548D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 92BDFE141BF06ED300FF548D /* Main.storyboard */; };
 		92BDFE181BF06ED300FF548D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 92BDFE171BF06ED300FF548D /* Assets.xcassets */; };
 /* End PBXBuildFile section */
@@ -101,20 +98,14 @@
 		920893C71BFDD337003560D6 /* UIView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extension.m"; sourceTree = "<group>"; };
 		920893C91BFDD337003560D6 /* UIViewController+Extention.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Extention.h"; sourceTree = "<group>"; };
 		920893CA1BFDD337003560D6 /* UIViewController+Extention.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Extention.m"; sourceTree = "<group>"; };
-		920893CB1BFDD337003560D6 /* UIViewController+HUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+HUD.h"; sourceTree = "<group>"; };
-		920893CC1BFDD337003560D6 /* UIViewController+HUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+HUD.m"; sourceTree = "<group>"; };
 		920893CE1BFDD337003560D6 /* UIWindow+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWindow+Extension.h"; sourceTree = "<group>"; };
 		920893CF1BFDD337003560D6 /* UIWindow+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWindow+Extension.m"; sourceTree = "<group>"; };
 		920893D21BFDD337003560D6 /* MBProgressHUD+MJ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+MJ.h"; sourceTree = "<group>"; };
 		920893D31BFDD337003560D6 /* MBProgressHUD+MJ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+MJ.m"; sourceTree = "<group>"; };
-		920893D71BFDD337003560D6 /* PPNewFeatherViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPNewFeatherViewController.h; sourceTree = "<group>"; };
-		920893D81BFDD337003560D6 /* PPNewFeatherViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPNewFeatherViewController.m; sourceTree = "<group>"; };
 		920893D91BFDD337003560D6 /* PPProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPProfileViewController.h; sourceTree = "<group>"; };
 		920893DA1BFDD337003560D6 /* PPProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPProfileViewController.m; sourceTree = "<group>"; };
 		920893FF1BFDDBB2003560D6 /* PPDiscoverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPDiscoverViewController.h; sourceTree = "<group>"; };
 		920894001BFDDBB2003560D6 /* PPDiscoverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPDiscoverViewController.m; sourceTree = "<group>"; };
-		920894011BFDDBB2003560D6 /* PPNewFeatherViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPNewFeatherViewController.h; sourceTree = "<group>"; };
-		920894021BFDDBB2003560D6 /* PPNewFeatherViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPNewFeatherViewController.m; sourceTree = "<group>"; };
 		92BDFE081BF06ED300FF548D /* PPZone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PPZone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		92BDFE151BF06ED300FF548D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		92BDFE171BF06ED300FF548D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -530,8 +521,6 @@
 			children = (
 				920893C91BFDD337003560D6 /* UIViewController+Extention.h */,
 				920893CA1BFDD337003560D6 /* UIViewController+Extention.m */,
-				920893CB1BFDD337003560D6 /* UIViewController+HUD.h */,
-				920893CC1BFDD337003560D6 /* UIViewController+HUD.m */,
 			);
 			path = "UIViewController+Extention";
 			sourceTree = "<group>";
@@ -583,8 +572,6 @@
 		920893D61BFDD337003560D6 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				920893D71BFDD337003560D6 /* PPNewFeatherViewController.h */,
-				920893D81BFDD337003560D6 /* PPNewFeatherViewController.m */,
 				920893D91BFDD337003560D6 /* PPProfileViewController.h */,
 				920893DA1BFDD337003560D6 /* PPProfileViewController.m */,
 			);
@@ -620,8 +607,6 @@
 			children = (
 				920893FF1BFDDBB2003560D6 /* PPDiscoverViewController.h */,
 				920894001BFDDBB2003560D6 /* PPDiscoverViewController.m */,
-				920894011BFDDBB2003560D6 /* PPNewFeatherViewController.h */,
-				920894021BFDDBB2003560D6 /* PPNewFeatherViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -791,7 +776,6 @@
 				920893DE1BFDD337003560D6 /* PPHomeViewController.m in Sources */,
 				920893E21BFDD337003560D6 /* PPSearchBar.m in Sources */,
 				920893E41BFDD337003560D6 /* PPTabBar.m in Sources */,
-				920894061BFDDBB2003560D6 /* PPNewFeatherViewController.m in Sources */,
 				920893EF1BFDD337003560D6 /* UIBarButtonItem+Extension.m in Sources */,
 				920893E71BFDD337003560D6 /* PPMessageViewController.m in Sources */,
 				920893F51BFDD337003560D6 /* UITextView+Extention.m in Sources */,
@@ -804,7 +788,6 @@
 				920893F31BFDD337003560D6 /* UIResponder+Router.m in Sources */,
 				920893E91BFDD337003560D6 /* PPNewFeatherViewController.m in Sources */,
 				920893E51BFDD337003560D6 /* PPConst.m in Sources */,
-				920893F81BFDD337003560D6 /* UIViewController+HUD.m in Sources */,
 				920893E11BFDD337003560D6 /* PPNavigationController.m in Sources */,
 				920893E81BFDD337003560D6 /* PPMessageDetailViewController.m in Sources */,
 				920893EA1BFDD337003560D6 /* Foundation+Log.m in Sources */,
@@ -817,7 +800,6 @@
 				9208936B1BFDD31D003560D6 /* main.m in Sources */,
 				920893F11BFDD337003560D6 /* UIColor+Random.m in Sources */,
 				920893E31BFDD337003560D6 /* PPTabBarController.m in Sources */,
-				920893FB1BFDD337003560D6 /* PPNewFeatherViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

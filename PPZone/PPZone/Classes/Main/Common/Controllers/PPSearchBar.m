@@ -25,7 +25,7 @@
         self.font = PP_FONT_SEARCHBAR;
         self.placeholder = @"请输入搜索内容";
         self.clearButtonMode = UITextFieldViewModeWhileEditing;
-        self.background = [UIImage resizedImageWithName:@"searchbar_textfield_background_os7"];
+        self.background = [UIImage resizedImageWithName:@"searchbar_textfield_background"];
         
         // 2. 设置 左边放大镜
         UIImageView *searchBarIcon = [[UIImageView alloc] init];

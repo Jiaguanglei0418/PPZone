@@ -35,15 +35,15 @@
     PPDiscoverViewController *discoverVc = [[PPDiscoverViewController alloc] init];
     PPProfileViewController *profileVc = [[PPProfileViewController alloc] init];
     
-    [self addChildVc:homeVc Title:@"首页" image:[UIImage imageNamed:@"tabbar_home_os7"] selectedImage:[UIImage imageNamed:@"tabbar_home_selected_os7"]];
-    [self addChildVc:messageVc Title:@"消息" image:[UIImage imageNamed:@"tabbar_message_center_os7"] selectedImage:[UIImage imageNamed:@"tabbar_message_center_selected_os7"]];
+    [self addChildVc:homeVc Title:@"首页" image:[UIImage imageNamed:@"tabbar_home"] selectedImage:[UIImage imageNamed:@"tabbar_home_selected"]];
+    [self addChildVc:messageVc Title:@"消息" image:[UIImage imageNamed:@"tabbar_message_center"] selectedImage:[UIImage imageNamed:@"tabbar_message_center_selected"]];
     
      /**  设置发微博 ***/
 //    [self addChildVc:[[UIViewController alloc] init] Title:@"发微博" image:nil selectedImage:nil];
     
-    [self addChildVc:discoverVc Title:@"发现" image:[UIImage imageNamed:@"tabbar_discover_os7"] selectedImage:[UIImage imageNamed:@"tabbar_discover_selected_os7"]];
-    [self addChildVc:profileVc Title:@"我的" image:[UIImage imageNamed:@"tabbar_profile_os7"] selectedImage:[UIImage imageNamed:@"tabbar_profile_selected_os7"]];
+    [self addChildVc:discoverVc Title:@"发现" image:[UIImage imageNamed:@"tabbar_discover"] selectedImage:[UIImage imageNamed:@"tabbar_discover_selected"]];
     
+    [self addChildVc:profileVc Title:@"我的" image:[UIImage imageNamed:@"tabbar_profile"] selectedImage:[UIImage imageNamed:@"tabbar_profile_selected"]];
     
     // 2. 更换自定义tabBar  ---  KVC 可以修改只读属性
     /**  可以修改只读 属性 ***/

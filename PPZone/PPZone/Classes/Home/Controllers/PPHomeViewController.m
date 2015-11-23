@@ -34,12 +34,12 @@
  */
 - (void)setupNavigationItem
 {
-    self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(searchFriend) image:@"navigationbar_friendsearch_os7" highImage:@"navigationbar_friendsearch_highlighted_os7"];
+    self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(searchFriend) image:@"navigationbar_friendsearch" highImage:@"navigationbar_friendsearch_highlighted"];
     
-    self.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(pop) image:@"navigationbar_pop_os7" highImage:@"navigationbar_pop_highlighted_os7"];
+    self.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(pop) image:@"navigationbar_pop" highImage:@"navigationbar_pop_highlighted"];
     
     // 设置下拉菜单
-    MyButton *btn = [MyButton buttonWithFrame:CGRectMake(0, 0, 100, 30) type:UIButtonTypeCustom title:@"home" titleColor:PPCOLOR_TABBAR_TITLE image:[UIImage imageNamed:@"navigationbar_arrow_down_os7"] selectedImage:[UIImage imageNamed:@"navigationbar_arrow_up_os7"] backgroundImage:nil andBlock:^(MyButton *button) {
+    MyButton *btn = [MyButton buttonWithFrame:CGRectMake(0, 0, 100, 30) type:UIButtonTypeCustom title:@"home" titleColor:PPCOLOR_TABBAR_TITLE image:[UIImage imageNamed:@"navigationbar_arrow_down"] selectedImage:[UIImage imageNamed:@"navigationbar_arrow_up"] backgroundImage:nil andBlock:^(MyButton *button) {
         
         // 1. 创建
         PPDropdownMenu *menu = [PPDropdownMenu dropdownMenu];

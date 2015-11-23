@@ -25,6 +25,7 @@
         
         self.rootViewController = [[PPNewFeatherViewController alloc] init];
         
+        
         // 将当前的版本号存进沙盒
         [[NSUserDefaults standardUserDefaults] setObject:currentVersion forKey:key];
         [[NSUserDefaults standardUserDefaults] synchronize];

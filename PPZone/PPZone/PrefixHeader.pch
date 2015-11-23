@@ -14,12 +14,5 @@
 
 
 
-#ifdef DEBUG // 开发阶段
-#define PPPLog(...) NSLog(__VA_ARGS__)
-
-#else
-#define PPPLog(...)
-
-#endif
 
 #endif /* PrefixHeader_pch */

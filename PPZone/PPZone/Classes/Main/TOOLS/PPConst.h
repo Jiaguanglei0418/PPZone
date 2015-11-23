@@ -1,5 +1,10 @@
 #import <Foundation/Foundation.h>
 
+#define APPKEY_Sina @"1114982661"
+#define APPSECRET_Sina @"6cb2f4419209cd4a40e1c98b94e554a4"
+
+
+
 /**
  *  1. RGB背景色
  */
@@ -80,7 +85,6 @@ extern NSString *const PPAlipayResultURLKey;
 #endif
 
 
-
 // 打印返回responsedata
 #define PPLogData(obj,content) \
 if(SADEBUG) \
@@ -106,7 +110,6 @@ NSLog(@"%@----->%@",content,string); \
 #else
 #define KKLogError(...) //NSLog(__VA_ARGS__)
 #endif
-
 
 
 // 设置输出颜色 --  需要安装Xcode colors 插件 https://github.com/robbiehanson/XcodeColors

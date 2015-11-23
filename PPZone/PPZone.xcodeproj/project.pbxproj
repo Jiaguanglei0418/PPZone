@@ -16,7 +16,6 @@
 		920893E21BFDD337003560D6 /* PPSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 920893831BFDD337003560D6 /* PPSearchBar.m */; };
 		920893E31BFDD337003560D6 /* PPTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 920893851BFDD337003560D6 /* PPTabBarController.m */; };
 		920893E41BFDD337003560D6 /* PPTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 920893891BFDD337003560D6 /* PPTabBar.m */; };
-		920893E51BFDD337003560D6 /* PPConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 9208938C1BFDD337003560D6 /* PPConst.m */; };
 		920893E61BFDD337003560D6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9208938F1BFDD337003560D6 /* AppDelegate.m */; };
 		920893E71BFDD337003560D6 /* PPMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 920893931BFDD337003560D6 /* PPMessageViewController.m */; };
 		920893E81BFDD337003560D6 /* PPMessageDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 920893971BFDD337003560D6 /* PPMessageDetailViewController.m */; };
@@ -39,6 +38,10 @@
 		920893FA1BFDD337003560D6 /* MBProgressHUD+MJ.m in Sources */ = {isa = PBXBuildFile; fileRef = 920893D31BFDD337003560D6 /* MBProgressHUD+MJ.m */; };
 		920893FC1BFDD337003560D6 /* PPProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 920893DA1BFDD337003560D6 /* PPProfileViewController.m */; };
 		920894051BFDDBB2003560D6 /* PPDiscoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 920894001BFDDBB2003560D6 /* PPDiscoverViewController.m */; };
+		92B2D24A1C03079C00335F36 /* PPAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B2D2491C03079C00335F36 /* PPAuthViewController.m */; };
+		92B2D26C1C032CE000335F36 /* PPAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B2D26B1C032CE000335F36 /* PPAccount.m */; };
+		92B2D2731C035FC800335F36 /* PPAccountManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B2D2721C035FC800335F36 /* PPAccountManager.m */; };
+		92B2D2771C035FE900335F36 /* PPConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B2D2761C035FE900335F36 /* PPConst.m */; };
 		92BDFE161BF06ED300FF548D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 92BDFE141BF06ED300FF548D /* Main.storyboard */; };
 		92BDFE181BF06ED300FF548D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 92BDFE171BF06ED300FF548D /* Assets.xcassets */; };
 /* End PBXBuildFile section */
@@ -61,8 +64,6 @@
 		920893851BFDD337003560D6 /* PPTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPTabBarController.m; sourceTree = "<group>"; };
 		920893881BFDD337003560D6 /* PPTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPTabBar.h; sourceTree = "<group>"; };
 		920893891BFDD337003560D6 /* PPTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPTabBar.m; sourceTree = "<group>"; };
-		9208938B1BFDD337003560D6 /* PPConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPConst.h; sourceTree = "<group>"; };
-		9208938C1BFDD337003560D6 /* PPConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPConst.m; sourceTree = "<group>"; };
 		9208938E1BFDD337003560D6 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		9208938F1BFDD337003560D6 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		920893921BFDD337003560D6 /* PPMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPMessageViewController.h; sourceTree = "<group>"; };
@@ -106,6 +107,14 @@
 		920893DA1BFDD337003560D6 /* PPProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPProfileViewController.m; sourceTree = "<group>"; };
 		920893FF1BFDDBB2003560D6 /* PPDiscoverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPDiscoverViewController.h; sourceTree = "<group>"; };
 		920894001BFDDBB2003560D6 /* PPDiscoverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPDiscoverViewController.m; sourceTree = "<group>"; };
+		92B2D2481C03079C00335F36 /* PPAuthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPAuthViewController.h; sourceTree = "<group>"; };
+		92B2D2491C03079C00335F36 /* PPAuthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPAuthViewController.m; sourceTree = "<group>"; };
+		92B2D26A1C032CE000335F36 /* PPAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPAccount.h; sourceTree = "<group>"; };
+		92B2D26B1C032CE000335F36 /* PPAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPAccount.m; sourceTree = "<group>"; };
+		92B2D2711C035FC800335F36 /* PPAccountManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPAccountManager.h; sourceTree = "<group>"; };
+		92B2D2721C035FC800335F36 /* PPAccountManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPAccountManager.m; sourceTree = "<group>"; };
+		92B2D2751C035FE900335F36 /* PPConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPConst.h; sourceTree = "<group>"; };
+		92B2D2761C035FE900335F36 /* PPConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPConst.m; sourceTree = "<group>"; };
 		92BDFE081BF06ED300FF548D /* PPZone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PPZone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		92BDFE151BF06ED300FF548D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		92BDFE171BF06ED300FF548D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -146,6 +155,7 @@
 		9208936C1BFDD337003560D6 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				92B2D2461C03078600335F36 /* OAuth */,
 				9208937D1BFDD337003560D6 /* Main */,
 				9208939C1BFDD337003560D6 /* NewFeather */,
 				920893701BFDD337003560D6 /* Home */,
@@ -270,8 +280,7 @@
 		9208938A1BFDD337003560D6 /* TOOLS */ = {
 			isa = PBXGroup;
 			children = (
-				9208938B1BFDD337003560D6 /* PPConst.h */,
-				9208938C1BFDD337003560D6 /* PPConst.m */,
+				92B2D2741C035FE900335F36 /* Const */,
 			);
 			path = TOOLS;
 			sourceTree = "<group>";
@@ -625,6 +634,52 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		92B2D2461C03078600335F36 /* OAuth */ = {
+			isa = PBXGroup;
+			children = (
+				92B2D2701C035FC800335F36 /* Tools */,
+				92B2D2471C03078600335F36 /* Controllers */,
+				92B2D2691C032CCD00335F36 /* Models */,
+			);
+			path = OAuth;
+			sourceTree = "<group>";
+		};
+		92B2D2471C03078600335F36 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				92B2D2481C03079C00335F36 /* PPAuthViewController.h */,
+				92B2D2491C03079C00335F36 /* PPAuthViewController.m */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		92B2D2691C032CCD00335F36 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				92B2D26A1C032CE000335F36 /* PPAccount.h */,
+				92B2D26B1C032CE000335F36 /* PPAccount.m */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		92B2D2701C035FC800335F36 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				92B2D2711C035FC800335F36 /* PPAccountManager.h */,
+				92B2D2721C035FC800335F36 /* PPAccountManager.m */,
+			);
+			path = Tools;
+			sourceTree = "<group>";
+		};
+		92B2D2741C035FE900335F36 /* Const */ = {
+			isa = PBXGroup;
+			children = (
+				92B2D2751C035FE900335F36 /* PPConst.h */,
+				92B2D2761C035FE900335F36 /* PPConst.m */,
+			);
+			path = Const;
+			sourceTree = "<group>";
+		};
 		92BDFDFF1BF06ED300FF548D = {
 			isa = PBXGroup;
 			children = (
@@ -771,15 +826,19 @@
 			files = (
 				920894051BFDDBB2003560D6 /* PPDiscoverViewController.m in Sources */,
 				920893E61BFDD337003560D6 /* AppDelegate.m in Sources */,
+				92B2D24A1C03079C00335F36 /* PPAuthViewController.m in Sources */,
 				920893FA1BFDD337003560D6 /* MBProgressHUD+MJ.m in Sources */,
 				920893F91BFDD337003560D6 /* UIWindow+Extension.m in Sources */,
 				920893DE1BFDD337003560D6 /* PPHomeViewController.m in Sources */,
+				92B2D26C1C032CE000335F36 /* PPAccount.m in Sources */,
 				920893E21BFDD337003560D6 /* PPSearchBar.m in Sources */,
 				920893E41BFDD337003560D6 /* PPTabBar.m in Sources */,
 				920893EF1BFDD337003560D6 /* UIBarButtonItem+Extension.m in Sources */,
+				92B2D2771C035FE900335F36 /* PPConst.m in Sources */,
 				920893E71BFDD337003560D6 /* PPMessageViewController.m in Sources */,
 				920893F51BFDD337003560D6 /* UITextView+Extention.m in Sources */,
 				920893FC1BFDD337003560D6 /* PPProfileViewController.m in Sources */,
+				92B2D2731C035FC800335F36 /* PPAccountManager.m in Sources */,
 				920893EB1BFDD337003560D6 /* NSDate+Extention.m in Sources */,
 				920893EE1BFDD337003560D6 /* NSString+Extention.m in Sources */,
 				920893DF1BFDD337003560D6 /* PPDropdownViewController.m in Sources */,
@@ -787,7 +846,6 @@
 				920893E01BFDD337003560D6 /* PPDropdownMenu.m in Sources */,
 				920893F31BFDD337003560D6 /* UIResponder+Router.m in Sources */,
 				920893E91BFDD337003560D6 /* PPNewFeatherViewController.m in Sources */,
-				920893E51BFDD337003560D6 /* PPConst.m in Sources */,
 				920893E11BFDD337003560D6 /* PPNavigationController.m in Sources */,
 				920893E81BFDD337003560D6 /* PPMessageDetailViewController.m in Sources */,
 				920893EA1BFDD337003560D6 /* Foundation+Log.m in Sources */,

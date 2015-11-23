@@ -7,10 +7,11 @@
 //
 
 #import "AppDelegate.h"
-#import "PPTabBarController.h"
-#import "PPNewFeatherViewController.h"
-#import "SDWebImageManager.h"
-
+#import "SDWebImageManager.h" // 清图片缓存
+#import "UIWindow+Extension.h" // 切换控制器
+#import "PPAuthViewController.h"
+#import "PPAccount.h"
+#import "PPAccountManager.h"
 @interface AppDelegate ()
 
 @end
@@ -21,30 +22,18 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // 1. 创建window
     self.window = [[UIWindow alloc] initWithFrame:PP_SCREEN_RECT];
+    [self.window makeKeyAndVisible];
+    
     
     // 2. 设置根控制器
-    UITabBarController *tabBarCon = [PPTabBarController tabBarController];
-    // 新特性
-    PPNewFeatherViewController *newFeather = [[PPNewFeatherViewController alloc] init];
+    PPAccount *account = [PPAccountManager account];
     
-    /**  版本判断 ***/
-    NSString *versionKey = @"CFBundleVersion";
-    // 上一次使用版本号(存储在沙盒中的版本号)
-    NSString *lastVersion = [[NSUserDefaults standardUserDefaults] objectForKey:versionKey];
-    // 获取当前App版本号
-    NSString *currentVersion = [NSBundle mainBundle].infoDictionary[versionKey];
+    if (account) { // 之前登录过, 并且accessToken有效
+        [self.window switchRootViewController];
+    }else{ // 申请授权
+        self.window.rootViewController = [[PPAuthViewController alloc] init];
+    }
     
-    if (![currentVersion isEqualToString:lastVersion]) { // 显示新特性
-        // 将版本号存进沙盒
-        [[NSUserDefaults standardUserDefaults] setObject:currentVersion forKey:versionKey];
-        // 同步到沙盒
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        // 设置根控制器
-        self.window.rootViewController = newFeather;
-        
-    }else self.window.rootViewController = tabBarCon;
- 
-    [self.window makeKeyAndVisible];
     return YES;
 }
 

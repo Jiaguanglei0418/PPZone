@@ -12,6 +12,7 @@
 #import "PPAuthViewController.h"
 #import "PPAccount.h"
 #import "PPAccountManager.h"
+
 @interface AppDelegate ()
 
 @end
@@ -40,7 +41,7 @@
 - (void)applicationDidReceiveMemoryWarning:(UIApplication *)application
 {
     SDWebImageManager *mgr = [SDWebImageManager sharedManager];
-
+    
     // 1. 取消下载
     [mgr cancelAll];
     // 2. 清除内存中的所有图片

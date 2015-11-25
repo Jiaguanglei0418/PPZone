@@ -10,7 +10,6 @@
 #import "AFNetworking.h"
 #import "MJExtension.h"
 #import "PPAccountManager.h"
-#import "PPAccount.h"
 #import "UIWindow+Extension.h"
 #import "MBProgressHUD+MJ.h"
 @interface PPAuthViewController ()<UIWebViewDelegate>

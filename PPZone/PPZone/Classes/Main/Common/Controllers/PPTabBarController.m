@@ -59,15 +59,16 @@
     
 }
 
+#pragma mark -
 #pragma mark - PPTabBarDelegate
 - (void)tabBarDidClickedPlusButton:(PPTabBar *)tabBar
 {
     [self presentViewController:[[UIViewController alloc] init] animated:YES completion:nil];
 }
 
-/**
- *  添加一个子控制器
- */
+
+#pragma mark -
+#pragma mark - 添加一个子控制器
 - (void)addChildVc:(UIViewController *)Vc Title:(NSString *)title image:(UIImage *)image selectedImage:(UIImage *)selectedImage
 {
     // 不调用此方法, 不会创建View

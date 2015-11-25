@@ -13,7 +13,12 @@
  /**  归档的实现 ***/
 MJExtensionCodingImplementation
 
-
+- (void)setName:(NSString *)name
+{
+    // 获取账号存储时间(accessToken)
+    NSDate *creatDate = [NSDate date];
+    self.created_time = creatDate;
+}
 /**
  *  当一个对象要归档进沙盒时, 就会调用这个方法
  *

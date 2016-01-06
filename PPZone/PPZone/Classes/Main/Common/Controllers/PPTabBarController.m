@@ -63,7 +63,7 @@
 #pragma mark - PPTabBarDelegate
 - (void)tabBarDidClickedPlusButton:(PPTabBar *)tabBar
 {
-    [self presentViewController:[[UIViewController alloc] init] animated:YES completion:nil];
+//    [self presentViewController:[[UIViewController alloc] init] animated:YES completion:nil];
 }
 
 

@@ -25,10 +25,11 @@
     self.window = [[UIWindow alloc] initWithFrame:PP_SCREEN_RECT];
     [self.window makeKeyAndVisible];
     
+    LogYellow(@"%@", ACCOUNT_PATH);
     
     // 2. 设置根控制器
     PPAccount *account = [PPAccountManager account];
-    
+    LogRed(@"account --  %@",account);
     if (account) { // 之前登录过, 并且accessToken有效
         [self.window switchRootViewController];
     }else{ // 申请授权

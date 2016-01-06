@@ -59,7 +59,7 @@
         // 截取code 后面的内容
         NSInteger fromIndex = range.location + range.length;
         NSString *code = [url substringFromIndex:fromIndex];
-//        LogGreen(@"%@",code);
+        LogGreen(@"%@",code);
         
         // 3.利用code 换取一个accessToken
         [self accessTokenWithCode:code];
@@ -109,11 +109,12 @@
          access_token = 2.00cMCkKG_v29NBd13f6ad65dtbAZOE,
          remind_in = 157679999
          */
-//        LogRed(@"登录成功 - %@", [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil]);
+        LogRed(@"登录成功 - %@", [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil]);
         
         
         // 将账号信息, 转换成模型
         PPAccount *account = [PPAccount mj_objectWithKeyValues:[NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil]];
+        
         // 将账号数据 存储到沙盒路径
         [PPAccountManager saveAccout:account];
 

@@ -10,7 +10,8 @@
 @class PPStatusFrame;
 
 @interface PPStatusCell : UITableViewCell
-+ (instancetype)cellWithTableView:(UITableView *)tableView indexPath:(NSIndexPath *)indexPath;
 
++ (instancetype)cellWithTableView:(UITableView *)tableView indexPath:(NSIndexPath *)indexPath;
 @property (nonatomic, strong) PPStatusFrame *statusFrame;
+
 @end

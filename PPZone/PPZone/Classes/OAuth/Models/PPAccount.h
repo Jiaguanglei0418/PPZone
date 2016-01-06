@@ -27,4 +27,6 @@
 
  /**  用户的昵称 ***/
 @property (nonatomic, copy) NSString *name;
+
+
 @end

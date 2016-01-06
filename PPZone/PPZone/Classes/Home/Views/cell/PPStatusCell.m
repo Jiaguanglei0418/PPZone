@@ -48,8 +48,7 @@
 + (instancetype)cellWithTableView:(UITableView *)tableView indexPath:(NSIndexPath *)indexPath
 {
     static NSString *ID = @"status";
-//    [tableView registerClass:[self class] forCellReuseIdentifier:ID];
-    
+   
     PPStatusCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
     if (!cell) {
         cell = [[PPStatusCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
@@ -182,6 +181,7 @@
     [originalView addSubview:contentLabel];
     self.contentLabel = contentLabel;
 }
+
 
 - (void)setStatusFrame:(PPStatusFrame *)statusFrame
 {

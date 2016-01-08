@@ -30,4 +30,19 @@
     btn.size = btn.currentBackgroundImage.size;
     return [[UIBarButtonItem alloc] initWithCustomView:btn];
 }
+
++ (UIBarButtonItem *)itemWithTitle:(NSString *)title style:(UIBarButtonItemStyle)style target:(id)target action:(SEL)action
+{
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [btn addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
+    [btn setTitle:title forState:UIControlStateNormal];
+    
+    [btn setTitleColor:PPCOLOR_TABBAR_TITLE forState:UIControlStateNormal];
+    [btn setTitleColor:PPCOLOR_TABBAR_DISABLED forState:UIControlStateDisabled];
+    [btn setTitleColor:PPCOLOR_TABBAR_TITLE forState:UIControlStateHighlighted];
+    // 设置尺寸
+    btn.size = CGSizeMake(44, 44);
+    return [[UIBarButtonItem alloc] initWithCustomView:btn];
+}
+
 @end

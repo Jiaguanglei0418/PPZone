@@ -11,6 +11,7 @@
 #import "PPMessageViewController.h"
 #import "PPDiscoverViewController.h"
 #import "PPProfileViewController.h"
+#import "PPComposeViewController.h" // 发微博
 
 #import "PPNavigationController.h"
 #import "MyButton.h"
@@ -63,7 +64,8 @@
 #pragma mark - PPTabBarDelegate
 - (void)tabBarDidClickedPlusButton:(PPTabBar *)tabBar
 {
-//    [self presentViewController:[[UIViewController alloc] init] animated:YES completion:nil];
+    PPComposeViewController *composeVC = [[PPComposeViewController alloc] init];
+    [self presentViewController:[[PPNavigationController alloc] initWithRootViewController:composeVC] animated:YES completion:nil];
 }
 
 

@@ -39,15 +39,17 @@
     return YES;
 }
 
+#pragma mark - applicationDidReceiveMemoryWarning (清除内存)
 - (void)applicationDidReceiveMemoryWarning:(UIApplication *)application
 {
     SDWebImageManager *mgr = [SDWebImageManager sharedManager];
     
-    // 1. 取消下载
+    // 1. 停止所有下载
     [mgr cancelAll];
+    
     // 2. 清除内存中的所有图片
     [mgr.imageCache clearMemory];
-    [mgr.imageCache clearDisk];
+//    [mgr.imageCache clearDisk];
 }
 
 
@@ -70,13 +72,16 @@
      *  4.后台运行状态
      */
     // 向操作系统申请后台运行的资格，能维持多久，是不确定的
-    UIBackgroundTaskIdentifier task = [application beginBackgroundTaskWithExpirationHandler:^{
+    __block UIBackgroundTaskIdentifier task = [application beginBackgroundTaskWithExpirationHandler:^{
         // 当申请的后台运行时间已经结束（过期），就会调用这个block
         
         
         // 赶紧结束任务
         [application endBackgroundTask:task];
     }];
+    // 1. 定义变量 task
+    // 2. 执行右边代码
+    // 3. 将返回值赋值给 task
     
     // 在Info.plst中设置后台模式：Required background modes == App plays audio or streams audio/video using AirPlay
     // 搞一个0kb的MP3文件，没有声音

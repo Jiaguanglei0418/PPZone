@@ -31,9 +31,17 @@
     
     // 设置disable状态
     NSMutableDictionary *disableAttrs = [NSMutableDictionary dictionary];
-    disableAttrs[NSForegroundColorAttributeName] = PPCOLOR_TABBAR_NORMAL;
+    disableAttrs[NSForegroundColorAttributeName] = [UIColor lightGrayColor];
     disableAttrs[NSFontAttributeName] = PP_FONT_NAVIGATIONITEM;
     [item setTitleTextAttributes:disableAttrs forState:UIControlStateDisabled];
+    
+    
+    // 设置选中状态
+    NSMutableDictionary *selectedAttrs = [NSMutableDictionary dictionary];
+    selectedAttrs[NSForegroundColorAttributeName] = [UIColor lightGrayColor];
+    selectedAttrs[NSFontAttributeName] = [UIColor whiteColor];
+    [item setTitleTextAttributes:selectedAttrs forState:UIControlStateHighlighted];
+    
 }
 
 

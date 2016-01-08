@@ -9,8 +9,16 @@
 #ifndef PrefixHeader_pch
 #define PrefixHeader_pch
 
-#import "UIView+Extension.h"
+
 #import "PPConst.h"
+#import "Header.h"
+
+
+
+#define PROPERTYWEAK(UIImageView, imageView) @property (nonatomic, weak) UIImageView *imageView;
+#define PROPERTYSTRONG(UIImageView, imageView) @property (nonatomic, strong) UIImageView *imageView;
+#define PROPERTYCOPY(NSString, name) @property (nonatomic, copy) NSString *name;
+#define PROPERTYASSIGN(int, i) @property (nonatomic, assign) int i;
 
 
 

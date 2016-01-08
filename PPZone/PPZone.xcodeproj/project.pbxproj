@@ -40,6 +40,9 @@
 		920894051BFDDBB2003560D6 /* PPDiscoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 920894001BFDDBB2003560D6 /* PPDiscoverViewController.m */; };
 		92527BE91C3D1ED700377FC6 /* PPStatusPhotoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92527BE81C3D1ED700377FC6 /* PPStatusPhotoView.m */; };
 		92527BEC1C3E6D0700377FC6 /* PPStatusImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92527BEB1C3E6D0700377FC6 /* PPStatusImageView.m */; };
+		92527BF41C3F65EA00377FC6 /* PPIconView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92527BF31C3F65EA00377FC6 /* PPIconView.m */; };
+		92527BFB1C3F980B00377FC6 /* PPComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92527BFA1C3F980B00377FC6 /* PPComposeViewController.m */; };
+		92527BFE1C3FB75B00377FC6 /* PPTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92527BFD1C3FB75B00377FC6 /* PPTextView.m */; };
 		92B2D24A1C03079C00335F36 /* PPAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B2D2491C03079C00335F36 /* PPAuthViewController.m */; };
 		92B2D26C1C032CE000335F36 /* PPAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B2D26B1C032CE000335F36 /* PPAccount.m */; };
 		92B2D2731C035FC800335F36 /* PPAccountManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B2D2721C035FC800335F36 /* PPAccountManager.m */; };
@@ -122,6 +125,13 @@
 		92527BE81C3D1ED700377FC6 /* PPStatusPhotoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPStatusPhotoView.m; sourceTree = "<group>"; };
 		92527BEA1C3E6D0700377FC6 /* PPStatusImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPStatusImageView.h; sourceTree = "<group>"; };
 		92527BEB1C3E6D0700377FC6 /* PPStatusImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPStatusImageView.m; sourceTree = "<group>"; };
+		92527BF21C3F65EA00377FC6 /* PPIconView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPIconView.h; sourceTree = "<group>"; };
+		92527BF31C3F65EA00377FC6 /* PPIconView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPIconView.m; sourceTree = "<group>"; };
+		92527BF91C3F980B00377FC6 /* PPComposeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPComposeViewController.h; sourceTree = "<group>"; };
+		92527BFA1C3F980B00377FC6 /* PPComposeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPComposeViewController.m; sourceTree = "<group>"; };
+		92527BFC1C3FB75B00377FC6 /* PPTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPTextView.h; sourceTree = "<group>"; };
+		92527BFD1C3FB75B00377FC6 /* PPTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPTextView.m; sourceTree = "<group>"; };
+		92527BFF1C3FC23A00377FC6 /* Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Header.h; sourceTree = "<group>"; };
 		92B2D2481C03079C00335F36 /* PPAuthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPAuthViewController.h; sourceTree = "<group>"; };
 		92B2D2491C03079C00335F36 /* PPAuthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPAuthViewController.m; sourceTree = "<group>"; };
 		92B2D26A1C032CE000335F36 /* PPAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPAccount.h; sourceTree = "<group>"; };
@@ -190,6 +200,7 @@
 				92B2D2461C03078600335F36 /* OAuth */,
 				9208937D1BFDD337003560D6 /* Main */,
 				9208939C1BFDD337003560D6 /* NewFeather */,
+				92527BF51C3F97E900377FC6 /* Compose */,
 				920893701BFDD337003560D6 /* Home */,
 				920893901BFDD337003560D6 /* Message */,
 				920893FD1BFDDBB2003560D6 /* Discover */,
@@ -304,6 +315,7 @@
 		920893871BFDD337003560D6 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				92527BF11C3F65EA00377FC6 /* iconView */,
 				920893881BFDD337003560D6 /* PPTabBar.h */,
 				920893891BFDD337003560D6 /* PPTabBar.m */,
 			);
@@ -678,6 +690,50 @@
 			path = statusPhotoView;
 			sourceTree = "<group>";
 		};
+		92527BF11C3F65EA00377FC6 /* iconView */ = {
+			isa = PBXGroup;
+			children = (
+				92527BF21C3F65EA00377FC6 /* PPIconView.h */,
+				92527BF31C3F65EA00377FC6 /* PPIconView.m */,
+			);
+			path = iconView;
+			sourceTree = "<group>";
+		};
+		92527BF51C3F97E900377FC6 /* Compose */ = {
+			isa = PBXGroup;
+			children = (
+				92527BF61C3F97E900377FC6 /* Controllers */,
+				92527BF71C3F97E900377FC6 /* Models */,
+				92527BF81C3F97E900377FC6 /* Views */,
+			);
+			path = Compose;
+			sourceTree = "<group>";
+		};
+		92527BF61C3F97E900377FC6 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				92527BF91C3F980B00377FC6 /* PPComposeViewController.h */,
+				92527BFA1C3F980B00377FC6 /* PPComposeViewController.m */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		92527BF71C3F97E900377FC6 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		92527BF81C3F97E900377FC6 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				92527BFC1C3FB75B00377FC6 /* PPTextView.h */,
+				92527BFD1C3FB75B00377FC6 /* PPTextView.m */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		92B2D2461C03078600335F36 /* OAuth */ = {
 			isa = PBXGroup;
 			children = (
@@ -759,6 +815,7 @@
 				9208936A1BFDD31D003560D6 /* main.m */,
 				92BDFE1C1BF06ED300FF548D /* Info.plist */,
 				92BDFE2F1BF08BEE00FF548D /* PrefixHeader.pch */,
+				92527BFF1C3FC23A00377FC6 /* Header.h */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -918,6 +975,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92527BFE1C3FB75B00377FC6 /* PPTextView.m in Sources */,
 				92527BE91C3D1ED700377FC6 /* PPStatusPhotoView.m in Sources */,
 				920894051BFDDBB2003560D6 /* PPDiscoverViewController.m in Sources */,
 				920893E61BFDD337003560D6 /* AppDelegate.m in Sources */,
@@ -940,6 +998,8 @@
 				920893EB1BFDD337003560D6 /* NSDate+Extention.m in Sources */,
 				92527BEC1C3E6D0700377FC6 /* PPStatusImageView.m in Sources */,
 				920893EE1BFDD337003560D6 /* NSString+Extention.m in Sources */,
+				92527BF41C3F65EA00377FC6 /* PPIconView.m in Sources */,
+				92527BFB1C3F980B00377FC6 /* PPComposeViewController.m in Sources */,
 				920893DF1BFDD337003560D6 /* PPDropdownViewController.m in Sources */,
 				920893F01BFDD337003560D6 /* MyButton.m in Sources */,
 				920893E01BFDD337003560D6 /* PPDropdownMenu.m in Sources */,
@@ -1069,6 +1129,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/PPZone/PrefixHeader.pch";
 				INFOPLIST_FILE = PPZone/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = RO.PPZone;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1085,6 +1146,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/PPZone/PrefixHeader.pch";
 				INFOPLIST_FILE = PPZone/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = RO.PPZone;
 				PRODUCT_NAME = "$(TARGET_NAME)";

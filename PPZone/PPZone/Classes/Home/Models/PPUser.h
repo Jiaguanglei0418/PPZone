@@ -45,6 +45,7 @@ typedef NS_ENUM(NSInteger, PPUserVerifiedType){
     PPUserVerifiedTypeEnterprice = 2, // 企业认证
     PPUserVerifiedTypeMedia = 3, // 媒体认证
     PPUserVerifiedTypeWebSite = 4, // 网络认证
+    PPUserVerifiedTypeDaren = 5 // 微博达人
 };
 
 @interface PPUser : NSObject

@@ -61,6 +61,9 @@
     return self;
 }
 
+/**
+ *  设置gif图标位置 - 右下角
+ */
 - (void)layoutSubviews
 {
     [super layoutSubviews];
@@ -76,7 +79,6 @@
     // 设置 图片
     [self sd_setImageWithURL:[NSURL URLWithString:photo.thumbnail_pic] placeholderImage:[UIImage imageNamed:@"timeline_image_placeholder"]];
     
-//    LogYellow(@"%@", photo.thumbnail_pic);
     // 设置 显示gif
     self.gif.hidden = ![photo.thumbnail_pic.lowercaseString hasSuffix:@"gif"];
 }

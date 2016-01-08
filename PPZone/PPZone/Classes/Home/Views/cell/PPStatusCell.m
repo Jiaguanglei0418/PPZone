@@ -13,13 +13,13 @@
 #import "PPPhoto.h"
 #import "PPToolbar.h"
 #import "PPStatusPhotoView.h" // 配图
-
+#import "PPIconView.h" // 头像
 @interface PPStatusCell ()
 /* 原创微博 */
 /** 原创微博整体 */
 @property (nonatomic, weak) UIView *originalView;
 /** 头像 */
-@property (nonatomic, weak) UIImageView *iconView;
+@property (nonatomic, weak) PPIconView *iconView;
 /** 会员图标 */
 @property (nonatomic, weak) UIImageView *vipView;
 /** 配图 */
@@ -47,20 +47,13 @@
 
 @implementation PPStatusCell
 
--(void)prepareForReuse
-
-{
-    [super prepareForReuse];
-    
-//    for (UIView *view in [self.contentView subviews])
-//    {
-//        if ([view isKindOfClass:[PPStatusPhotoView class]])
-//        {
-//            [view removeFromSuperview];
-//        }
-//    }
-    
-}
+//-(void)prepareForReuse
+//
+//{
+//    [super prepareForReuse];
+//    
+//    
+//}
 
 + (instancetype)cellWithTableView:(UITableView *)tableView indexPath:(NSIndexPath *)indexPath
 {
@@ -159,7 +152,7 @@
     self.originalView = originalView;
     
     /** 头像 */
-    UIImageView *iconView = [[UIImageView alloc] init];
+    PPIconView *iconView = [[PPIconView alloc] init];
     [originalView addSubview:iconView];
     self.iconView = iconView;
     
@@ -214,7 +207,8 @@
     
     /** 头像 */
     self.iconView.frame = statusFrame.iconViewF;
-    [self.iconView sd_setImageWithURL:[NSURL URLWithString:user.profile_image_url] placeholderImage:[UIImage imageNamed:@"avatar_default_small"]];
+    self.iconView.user = user;
+    
     
     /** 会员图标 */
     if (user.isVip) {
@@ -235,11 +229,6 @@
         self.photoView.frame = statusFrame.photoViewF;
 
         self.photoView.photos = status.pic_urls;
-        //FIXME: 设置配图
-        
-        
-//        [self.photoView sd_setImageWithURL:[NSURL URLWithString:photo.thumbnail_pic] placeholderImage:[UIImage imageNamed:@"timeline_image_placeholder"]];
-        
         self.photoView.hidden = NO;
     } else {
         self.photoView.hidden = YES;
@@ -250,11 +239,6 @@
     self.nameLabel.frame = statusFrame.nameLabelF;
     
     
-    //    NSString *newTime = status.created_at;
-    //    NSUInteger timeLen = self.timeLabel.text.length;
-    //    if (timeLen && timeLen != newTime.length) { //
-    //
-    //    }
     /** 时间 */
     NSString *time = status.created_at;
     CGFloat timeX = statusFrame.nameLabelF.origin.x;

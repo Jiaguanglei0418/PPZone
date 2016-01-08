@@ -38,8 +38,11 @@
     return _statusFrames;
 }
 
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+
     // 注册 - 显示badgeValue
     [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeBadge | UIUserNotificationTypeAlert | UIUserNotificationTypeSound categories:nil]];
     
@@ -251,7 +254,7 @@
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     PPAccount *account = [PPAccountManager account];
     params[@"access_token"] = account.access_token;
-    params[@"count"] = @4;
+    params[@"count"] = @5;
     // 取出最前面的微博(最新的微博, ID最大)
     PPStatusFrame *firstStatus = [self.statusFrames firstObject];
     // 指定 since_id 则返回ID比since_id大的微博数据, 默认为0

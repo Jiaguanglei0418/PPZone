@@ -88,6 +88,10 @@
 // source == <a href="http://app.weibo.com/t/feed/2llosp" rel="nofollow">OPPO_N1mini</a>
 - (void)setSource:(NSString *)source
 {
+    if (!source || [source isEqualToString:@""]) {
+        return;
+    }
+    
     // 正则表达式 NSRegularExpression
     // 截串 NSString
     NSRange range;
@@ -99,6 +103,6 @@
     }else{
         return;
     }
-    
+
 }
 @end

@@ -234,6 +234,7 @@
     }];
 }
 
+
 /**
  *  监听下拉刷新
  */
@@ -381,7 +382,7 @@
     PPAccount *account = [PPAccountManager account];
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     params[@"access_token"] = account.access_token;
-    params[@"count"] = @1;
+    params[@"count"] = @5;
     // 取出最后面的微博（最新的微博，ID最大的微博）
     PPStatusFrame *lastStatus = [self.statusFrames lastObject];
     if (lastStatus) {
@@ -395,7 +396,7 @@
     [mgr GET:@"https://api.weibo.com/2/statuses/friends_timeline.json" parameters:params success:^(AFHTTPRequestOperation *operation, NSDictionary *responseObject) {
         // 将 "微博字典"数组 转为 "微博模型"数组
         NSArray *newStatuses = [PPStatus mj_objectArrayWithKeyValuesArray:responseObject[@"statuses"]];
-        LogRed(@"%@", responseObject[@"statuses"]);
+//        LogRed(@"%@", responseObject[@"statuses"]);
         
         
         

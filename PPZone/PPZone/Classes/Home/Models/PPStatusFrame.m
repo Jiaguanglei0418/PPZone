@@ -9,8 +9,9 @@
 #import "PPStatusFrame.h"
 #import "PPStatus.h"
 #import "NSString+Extention.h"
-
+#import "PPStatusPhotoView.h"
 @implementation PPStatusFrame
+
 - (void)setStatus:(PPStatus *)status
 {
     _status = status;
@@ -65,10 +66,10 @@
     /** 配图 */
     CGFloat originalH = 0;
     if (status.pic_urls.count) { // 有配图
-        CGFloat photoWH = 100;
         CGFloat photoX = contentX;
         CGFloat photoY = CGRectGetMaxY(self.contentLabelF) + PPStatusCellBorderW;
-        self.photoViewF = CGRectMake(photoX, photoY, photoWH, photoWH);
+        CGSize photoSize = [PPStatusPhotoView sizeWithCount:status.pic_urls.count];
+        self.photoViewF = (CGRect){{photoX, photoY}, photoSize};
         
         originalH = CGRectGetMaxY(self.photoViewF) + PPStatusCellBorderW;
     } else { // 没配图
@@ -82,6 +83,7 @@
     self.originalViewF = CGRectMake(originalX, originalY, originalW, originalH);
     
     CGFloat toolbarY = 0;
+    
     /* 被转发微博 */
     if (status.retweeted_status) {
         PPStatus *retweeted_status = status.retweeted_status;
@@ -97,12 +99,12 @@
         /** 被转发微博配图 */
         CGFloat retweetH = 0;
         if (retweeted_status.pic_urls.count) { // 转发微博有配图
-            CGFloat retweetPhotoWH = 100;
             CGFloat retweetPhotoX = retweetContentX;
             CGFloat retweetPhotoY = CGRectGetMaxY(self.retweetContentLabelF) + PPStatusCellBorderW;
-            self.retweetPhotoViewF = CGRectMake(retweetPhotoX, retweetPhotoY, retweetPhotoWH, retweetPhotoWH);
+            CGSize photoSize = [PPStatusPhotoView sizeWithCount:retweeted_status.pic_urls.count];
+            self.retweetPhotoViewF = (CGRect){{retweetPhotoX, retweetPhotoY}, photoSize};
             
-            retweetH = CGRectGetMaxY(self.retweetPhotoViewF) + PPStatusCellBorderW;
+            retweetH = CGRectGetMaxY(self.retweetPhotoViewF)+ PPStatusCellBorderW;
         } else { // 转发微博没有配图
             retweetH = CGRectGetMaxY(self.retweetContentLabelF) + PPStatusCellBorderW;
         }
@@ -127,5 +129,6 @@
     /* cell的高度 */
     self.cellHeight = CGRectGetMaxY(self.toolbarF);
 }
+
 
 @end

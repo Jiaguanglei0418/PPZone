@@ -29,6 +29,8 @@
 // cell的边框宽度
 #define PPStatusCellBorderW 10
 
+// 配图宽度/高度
+#define PPStatusPhotoW floor((PP_SCREEN_WIDTH - 4 * PPStatusCellBorderW) / 3)
 @class PPStatus;
 
 @interface PPStatusFrame : NSObject

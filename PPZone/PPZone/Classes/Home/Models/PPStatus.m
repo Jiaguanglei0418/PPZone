@@ -84,6 +84,7 @@
     }
 }
 
+
 // source == <a href="http://app.weibo.com/t/feed/2llosp" rel="nofollow">OPPO_N1mini</a>
 - (void)setSource:(NSString *)source
 {
@@ -93,13 +94,11 @@
     range.location = [source rangeOfString:@">"].location + 1;
     range.length = [source rangeOfString:@"</"].location - range.location;
     //    range.length = [source rangeOfString:@"<" options:NSBackwardsSearch];
-    if (range.length != 0) {
+    if (range.location != NSNotFound) {
         _source = [NSString stringWithFormat:@"来自%@", [source substringWithRange:range]];
     }else{
         return;
     }
-    
-    
     
 }
 @end

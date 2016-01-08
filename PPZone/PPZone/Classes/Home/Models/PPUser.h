@@ -38,6 +38,15 @@
  "online_status": 0,
  "bi_followers_count": 215
  */
+
+typedef NS_ENUM(NSInteger, PPUserVerifiedType){
+    PPUserVerifiedTypeNone = -1, // 普通注册用户
+    PPUserVerifiedTypePersonal = 0, // 个人认证
+    PPUserVerifiedTypeEnterprice = 2, // 企业认证
+    PPUserVerifiedTypeMedia = 3, // 媒体认证
+    PPUserVerifiedTypeWebSite = 4, // 网络认证
+};
+
 @interface PPUser : NSObject
 /**	string	字符串型的用户UID*/
 @property (nonatomic, copy) NSString *idstr;
@@ -56,5 +65,5 @@
 
 @property (nonatomic, assign, getter = isVip) BOOL vip;
 
-
+@property (nonatomic, assign) PPUserVerifiedType verified_type;
 @end

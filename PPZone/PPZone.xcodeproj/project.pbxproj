@@ -38,6 +38,8 @@
 		920893FA1BFDD337003560D6 /* MBProgressHUD+MJ.m in Sources */ = {isa = PBXBuildFile; fileRef = 920893D31BFDD337003560D6 /* MBProgressHUD+MJ.m */; };
 		920893FC1BFDD337003560D6 /* PPProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 920893DA1BFDD337003560D6 /* PPProfileViewController.m */; };
 		920894051BFDDBB2003560D6 /* PPDiscoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 920894001BFDDBB2003560D6 /* PPDiscoverViewController.m */; };
+		92527BE91C3D1ED700377FC6 /* PPStatusPhotoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92527BE81C3D1ED700377FC6 /* PPStatusPhotoView.m */; };
+		92527BEC1C3E6D0700377FC6 /* PPStatusImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92527BEB1C3E6D0700377FC6 /* PPStatusImageView.m */; };
 		92B2D24A1C03079C00335F36 /* PPAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B2D2491C03079C00335F36 /* PPAuthViewController.m */; };
 		92B2D26C1C032CE000335F36 /* PPAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B2D26B1C032CE000335F36 /* PPAccount.m */; };
 		92B2D2731C035FC800335F36 /* PPAccountManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B2D2721C035FC800335F36 /* PPAccountManager.m */; };
@@ -116,6 +118,10 @@
 		920893DA1BFDD337003560D6 /* PPProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPProfileViewController.m; sourceTree = "<group>"; };
 		920893FF1BFDDBB2003560D6 /* PPDiscoverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPDiscoverViewController.h; sourceTree = "<group>"; };
 		920894001BFDDBB2003560D6 /* PPDiscoverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPDiscoverViewController.m; sourceTree = "<group>"; };
+		92527BE71C3D1ED700377FC6 /* PPStatusPhotoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPStatusPhotoView.h; sourceTree = "<group>"; };
+		92527BE81C3D1ED700377FC6 /* PPStatusPhotoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPStatusPhotoView.m; sourceTree = "<group>"; };
+		92527BEA1C3E6D0700377FC6 /* PPStatusImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPStatusImageView.h; sourceTree = "<group>"; };
+		92527BEB1C3E6D0700377FC6 /* PPStatusImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPStatusImageView.m; sourceTree = "<group>"; };
 		92B2D2481C03079C00335F36 /* PPAuthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPAuthViewController.h; sourceTree = "<group>"; };
 		92B2D2491C03079C00335F36 /* PPAuthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPAuthViewController.m; sourceTree = "<group>"; };
 		92B2D26A1C032CE000335F36 /* PPAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPAccount.h; sourceTree = "<group>"; };
@@ -661,6 +667,17 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		92527BE61C3D1EAA00377FC6 /* statusPhotoView */ = {
+			isa = PBXGroup;
+			children = (
+				92527BE71C3D1ED700377FC6 /* PPStatusPhotoView.h */,
+				92527BE81C3D1ED700377FC6 /* PPStatusPhotoView.m */,
+				92527BEA1C3E6D0700377FC6 /* PPStatusImageView.h */,
+				92527BEB1C3E6D0700377FC6 /* PPStatusImageView.m */,
+			);
+			path = statusPhotoView;
+			sourceTree = "<group>";
+		};
 		92B2D2461C03078600335F36 /* OAuth */ = {
 			isa = PBXGroup;
 			children = (
@@ -749,6 +766,7 @@
 		92DFAB881C059F6F00FEB988 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				92527BE61C3D1EAA00377FC6 /* statusPhotoView */,
 				92DFAB9F1C05B13500FEB988 /* toolbar */,
 				92DFAB891C059F6F00FEB988 /* cell */,
 				92DFAB8A1C059F6F00FEB988 /* footer */,
@@ -900,6 +918,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92527BE91C3D1ED700377FC6 /* PPStatusPhotoView.m in Sources */,
 				920894051BFDDBB2003560D6 /* PPDiscoverViewController.m in Sources */,
 				920893E61BFDD337003560D6 /* AppDelegate.m in Sources */,
 				92B2D24A1C03079C00335F36 /* PPAuthViewController.m in Sources */,
@@ -919,6 +938,7 @@
 				920893FC1BFDD337003560D6 /* PPProfileViewController.m in Sources */,
 				92B2D2731C035FC800335F36 /* PPAccountManager.m in Sources */,
 				920893EB1BFDD337003560D6 /* NSDate+Extention.m in Sources */,
+				92527BEC1C3E6D0700377FC6 /* PPStatusImageView.m in Sources */,
 				920893EE1BFDD337003560D6 /* NSString+Extention.m in Sources */,
 				920893DF1BFDD337003560D6 /* PPDropdownViewController.m in Sources */,
 				920893F01BFDD337003560D6 /* MyButton.m in Sources */,

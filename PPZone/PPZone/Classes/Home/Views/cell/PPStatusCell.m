@@ -12,6 +12,8 @@
 #import "UIImageView+WebCache.h"
 #import "PPPhoto.h"
 #import "PPToolbar.h"
+#import "PPStatusPhotoView.h" // 配图
+
 @interface PPStatusCell ()
 /* 原创微博 */
 /** 原创微博整体 */
@@ -21,7 +23,7 @@
 /** 会员图标 */
 @property (nonatomic, weak) UIImageView *vipView;
 /** 配图 */
-@property (nonatomic, weak) UIImageView *photoView;
+@property (nonatomic, weak) PPStatusPhotoView *photoView;
 /** 昵称 */
 @property (nonatomic, weak) UILabel *nameLabel;
 /** 时间 */
@@ -37,7 +39,7 @@
 /** 转发微博正文 + 昵称 */
 @property (nonatomic, weak) UILabel *retweetContentLabel;
 /** 转发配图 */
-@property (nonatomic, weak) UIImageView *retweetPhotoView;
+@property (nonatomic, weak) PPStatusPhotoView *retweetPhotoView;
 
 /** 工具条 */
 @property (nonatomic, weak) PPToolbar *toolbar;
@@ -45,14 +47,31 @@
 
 @implementation PPStatusCell
 
+-(void)prepareForReuse
+
+{
+    [super prepareForReuse];
+    
+//    for (UIView *view in [self.contentView subviews])
+//    {
+//        if ([view isKindOfClass:[PPStatusPhotoView class]])
+//        {
+//            [view removeFromSuperview];
+//        }
+//    }
+    
+}
+
 + (instancetype)cellWithTableView:(UITableView *)tableView indexPath:(NSIndexPath *)indexPath
 {
     static NSString *ID = @"status";
-   
-    PPStatusCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+//    [tableView registerClass:[PPStatusCell class] forCellReuseIdentifier:ID];
+//    PPStatusCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+    PPStatusCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     if (!cell) {
         cell = [[PPStatusCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
     }
+    
     return cell;
 }
 
@@ -123,7 +142,7 @@
     self.retweetContentLabel = retweetContentLabel;
     
     /** 转发微博配图 */
-    UIImageView *retweetPhotoView = [[UIImageView alloc] init];
+    PPStatusPhotoView *retweetPhotoView = [[PPStatusPhotoView alloc] init];
     [retweetView addSubview:retweetPhotoView];
     self.retweetPhotoView = retweetPhotoView;
 }
@@ -151,7 +170,7 @@
     self.vipView = vipView;
     
     /** 配图 */
-    UIImageView *photoView = [[UIImageView alloc] init];
+    PPStatusPhotoView *photoView = [[PPStatusPhotoView alloc] init];
     [originalView addSubview:photoView];
     self.photoView = photoView;
     
@@ -214,8 +233,12 @@
     /** 配图 */
     if (status.pic_urls.count) {
         self.photoView.frame = statusFrame.photoViewF;
-        PPPhoto *photo = [status.pic_urls firstObject];
-        [self.photoView sd_setImageWithURL:[NSURL URLWithString:photo.thumbnail_pic] placeholderImage:[UIImage imageNamed:@"timeline_image_placeholder"]];
+
+        self.photoView.photos = status.pic_urls;
+        //FIXME: 设置配图
+        
+        
+//        [self.photoView sd_setImageWithURL:[NSURL URLWithString:photo.thumbnail_pic] placeholderImage:[UIImage imageNamed:@"timeline_image_placeholder"]];
         
         self.photoView.hidden = NO;
     } else {
@@ -268,9 +291,8 @@
         /** 被转发的微博配图 */
         if (retweeted_status.pic_urls.count) {
             self.retweetPhotoView.frame = statusFrame.retweetPhotoViewF;
-            PPPhoto *retweetedPhoto = [retweeted_status.pic_urls firstObject];
-            [self.retweetPhotoView sd_setImageWithURL:[NSURL URLWithString:retweetedPhoto.thumbnail_pic] placeholderImage:[UIImage imageNamed:@"timeline_image_placeholder"]];
-            
+            // 设置配图操作, 封装在自定义photoView内部
+            self.retweetPhotoView.photos = retweeted_status.pic_urls;
             self.retweetPhotoView.hidden = NO;
         } else {
             self.retweetPhotoView.hidden = YES;
@@ -283,5 +305,6 @@
     self.toolbar.frame = statusFrame.toolbarF;
     self.toolbar.status = status;
 }
+
 
 @end

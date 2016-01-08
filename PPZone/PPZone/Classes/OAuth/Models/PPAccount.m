@@ -7,10 +7,12 @@
 //
 
 #import "PPAccount.h"
+
 #import "MJExtension.h"
 
 @implementation PPAccount
  /**  归档的实现 ***/
+//MJExtensionCodingImplementation
 //MJExtensionCodingImplementation
 
 - (void)setName:(NSString *)name

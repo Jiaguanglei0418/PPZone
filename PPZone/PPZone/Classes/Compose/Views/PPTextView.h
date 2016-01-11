@@ -13,6 +13,8 @@
  *  发送的图片
  */
 PROPERTYSTRONG(NSArray, photos)
-
-
+/**
+ *  placeholder
+ */
+PROPERTYWEAK(UILabel, placeholder)
 @end

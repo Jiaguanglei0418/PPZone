@@ -22,14 +22,21 @@ PROPERTYWEAK(PPTextView, textView)
 @end
 
 @implementation PPComposeViewController
-
+/**
+ *  lazy
+ */
 - (PPTextView *)textView
 {
     if (!_textView) {
-       
+        PPTextView *textView = [[PPTextView alloc] init];
+        textView.frame = self.view.bounds;
+        textView.placeholder.text = @" 请输入微博内容 ... ";
+        [self.view addSubview:textView];
+        _textView = textView;
     }
     return _textView;
 }
+
 
 // 弹出键盘, (减缓卡顿)
 - (void)viewWillAppear:(BOOL)animated
@@ -168,11 +175,6 @@ PROPERTYWEAK(PPTextView, textView)
 - (void)setupTextView
 {
     // 1. 创建textView
-    PPTextView *textView = [[PPTextView alloc] init];
-    textView.font = [UIFont systemFontOfSize:18];
-    textView.frame = self.view.bounds;
-    [self.view addSubview:textView];
-    _textView = textView;
     
     // 2. 注册通知, 监听文本改变
     [PPNOTICEFICATION addObserver:self selector:@selector(textViewTextDidChange) name:UITextViewTextDidChangeNotification object:self.textView];
@@ -180,7 +182,13 @@ PROPERTYWEAK(PPTextView, textView)
 // 监听文字改变
 - (void)textViewTextDidChange
 {
-    [self.navigationItem.rightBarButtonItem setEnabled:YES];
+    if (![self.textView.text isEqualToString:@""]) {
+        self.textView.placeholder.hidden = YES;
+        [self.navigationItem.rightBarButtonItem setEnabled:YES];
+    }else{
+        self.textView.placeholder.hidden = NO;
+        [self.navigationItem.rightBarButtonItem setEnabled:NO];
+    }
 }
 
 

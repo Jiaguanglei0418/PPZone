@@ -16,10 +16,13 @@
 // 三方库
 #import "MBProgressHUD+MJ.h"
 #import "UIView+Extension.h"
-#import "AFNetworking.h"
+//#import "AFNetworking.h"
 
 // 工具类
 #import "MyButton.h"
+#import "Singleton.h"
+#import "PPHttpUtils.h"
+
 
 
 #endif /* Header_h */

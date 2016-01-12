@@ -16,7 +16,7 @@
 /**
  *  发送的图片
  */
-PROPERTYSTRONG(NSArray, photos)
+//PROPERTYSTRONG(NSMutableArray, photos)
 /**
  *  placeholder
  */

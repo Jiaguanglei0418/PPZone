@@ -14,7 +14,7 @@
 #import "PPDropdownMenu.h" // 下拉菜单
 #import "PPDropdownViewController.h"
 
-#import "AFNetworking.h"
+
 #import "PPAccountManager.h"
 
 #import "MJExtension.h"
@@ -125,36 +125,49 @@
      access_token	false	string	采用OAuth授权方式为必填参数，其他授权方式不需要此参数，OAuth授权后获得。
      uid	false	int64	需要查询的用户ID。
      */
-    // 1. 请求管理者
-    AFHTTPRequestOperationManager *mgr = [AFHTTPRequestOperationManager manager];
-    mgr.responseSerializer = [AFHTTPResponseSerializer serializer];
-    
+//    // 1. 请求管理者
+//    AFHTTPRequestOperationManager *mgr = [AFHTTPRequestOperationManager manager];
+//    mgr.responseSerializer = [AFHTTPResponseSerializer serializer];
+//    
+//    // 2. 拼接请求参数
+//    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+//    PPAccount *account = [PPAccountManager account];
+//    
+//    params[@"access_token"] = account.access_token;
+//    params[@"uid"] = account.uid;
+//    
+//    // 3. GET 请求 -- 获取用户昵称
+//    [mgr GET:@"https://api.weibo.com/2/users/show.json" parameters:params success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) { // 成功
+//      
+//        
+//    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+//        
+//    }];
+//    
     // 2. 拼接请求参数
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     PPAccount *account = [PPAccountManager account];
-    
     params[@"access_token"] = account.access_token;
     params[@"uid"] = account.uid;
     
-    // 3. GET 请求 -- 获取用户昵称
-    [mgr GET:@"https://api.weibo.com/2/users/show.json" parameters:params success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) { // 成功
+    [PPHttpUtils GETWithURL:@"https://api.weibo.com/2/users/show.json" prarams:params success:^(id json) {
         // 获取返回数据类型
-//        LogYellow(@"%@", [NSString stringWithUTF8String:object_getClassName(responseObject)]);
+//        LogYellow(@"%@", [NSString stringWithUTF8String:object_getClassName(json)]);
         
         // 获取标题按钮
-        PPUser *user = [PPUser mj_objectWithKeyValues:[NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil]];
-//        NSString *name = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil][@"name"];
+        PPUser *user = [PPUser mj_objectWithKeyValues:json];
+        //        NSString *name = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil][@"name"];
         
         PPTitleButton *titleBtn = (PPTitleButton *)self.navigationItem.titleView;
         // 设置名称
         [titleBtn setTitle:user.name forState:UIControlStateNormal];
         // 内容改了以后, 需要重新设置  ---  在setTitle中设置
-//        [titleBtn sizeToFit];
+        //        [titleBtn sizeToFit];
         // 存储昵称到沙盒中
         account.name = user.name;
         
-    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
-        
+    } failure:^(NSError *error) {
+        LogRed(@"请求出错 -- %@", error);
     }];
     
 }
@@ -182,28 +195,6 @@
 - (void)loadNewStatus
 {
     [self refreshStateChanged:nil];
-//    // 1. 请求管理者
-//    AFHTTPRequestOperationManager *mgr = [AFHTTPRequestOperationManager manager];
-//    
-//    // 2. 拼接请求参数
-//    NSMutableDictionary *params = [NSMutableDictionary dictionary];
-//    PPAccount *account = [PPAccountManager account];
-//    
-//    params[@"access_token"] = account.access_token;
-////    params[@"count"] = @10;
-//    // 3. GET 请求 -- 获取用户昵称
-//    [mgr GET:@"https://api.weibo.com/2/statuses/friends_timeline.json" parameters:params success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) { // 成功
-//        // 获取返回数据
-//        NSArray *newStatus = [PPStatus mj_objectArrayWithKeyValuesArray:responseObject[@"statuses"]];
-//        [self.statuses addObjectsFromArray:newStatus];
-//        
-//        // 刷表
-//        [self.tableView reloadData];
-//        
-//    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
-//        
-//    }];
-
 }
 
 
@@ -247,9 +238,6 @@
     self.tabBarItem.badgeValue = 0;
     [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
     
-    // 1. 请求管理者
-    AFHTTPRequestOperationManager *mgr = [AFHTTPRequestOperationManager manager];
-    
     // 2. 拼接请求参数
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     PPAccount *account = [PPAccountManager account];
@@ -261,28 +249,26 @@
     if(firstStatus){
         params[@"since_id"] = firstStatus.status.idstr;
     }
-    //    params[@"count"] = @10;
-    // 3. GET 请求 -- 获取用户昵称
-    [mgr GET:@"https://api.weibo.com/2/statuses/friends_timeline.json" parameters:params success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) { // 成功
+
+    [PPHttpUtils GETWithURL:@"https://api.weibo.com/2/statuses/friends_timeline.json"  prarams:params success:^(id json) {
         // 获取返回数据
-        NSArray *newStatus = [PPStatus mj_objectArrayWithKeyValuesArray:responseObject[@"statuses"]];
-         /**  将Status数组 转换成StatusFrame 数组 ***/
+        NSArray *newStatus = [PPStatus mj_objectArrayWithKeyValuesArray:json[@"statuses"]];
+        /**  将Status数组 转换成StatusFrame 数组 ***/
         NSArray *newFrames = [self stausFramesWithStatuses:newStatus];
-        
         
         NSRange range = NSMakeRange(0, newFrames.count);
         [self.statusFrames insertObjects:newFrames atIndexes:[NSIndexSet indexSetWithIndexesInRange:range]];
         
         // 刷表
         [self.tableView reloadData];
-//        [control endRefreshing];
+        //        [control endRefreshing];
         
         // 显示最新微博的数量
         [self showNewStausCount:newFrames.count];
         // 隐藏 下拉刷新
         [self.tableView.mj_header endRefreshing];
-    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
-//        [control endRefreshing];
+    } failure:^(NSError *error) {
+        //        [control endRefreshing];
         // 隐藏 下拉刷新
         [self.tableView.mj_header endRefreshing];
     }];
@@ -346,21 +332,17 @@
  */
 - (void)setupUnreadStatusCount
 {
-    // 1.请求管理者
-    AFHTTPRequestOperationManager *mgr = [AFHTTPRequestOperationManager manager];
-    
     // 2.拼接请求参数
     PPAccount *account = [PPAccountManager account];
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     params[@"access_token"] = account.access_token;
     params[@"uid"] = account.uid;
     
-    // 3.发送请求
-    [mgr GET:@"https://rm.api.weibo.com/2/remind/unread_count.json" parameters:params success:^(AFHTTPRequestOperation *operation, NSDictionary *responseObject) {
+    [PPHttpUtils GETWithURL:@"https://rm.api.weibo.com/2/remind/unread_count.json" prarams:params success:^(id json) {
         // @20 --> @"20"
         // NSNumber --> NSString
         // 设置提醒数字(微博的未读数)
-        NSString *status = [responseObject[@"status"] description];
+        NSString *status = [json[@"status"] description];
         if ([status isEqualToString:@"0"]) { // 如果是0，得清空数字
             self.tabBarItem.badgeValue = nil;
             [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
@@ -368,7 +350,8 @@
             self.tabBarItem.badgeValue = status;
             [UIApplication sharedApplication].applicationIconBadgeNumber = status.intValue;
         }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+
+    } failure:^(NSError *error) {
         LogGreen(@"请求失败-%@", error);
     }];
 }
@@ -378,9 +361,6 @@
  */
 - (void)loadMoreStatus
 {
-    // 1.请求管理者
-    AFHTTPRequestOperationManager *mgr = [AFHTTPRequestOperationManager manager];
-    
     // 2.拼接请求参数
     PPAccount *account = [PPAccountManager account];
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
@@ -396,24 +376,19 @@
     }
     
     // 3.发送请求
-    [mgr GET:@"https://api.weibo.com/2/statuses/friends_timeline.json" parameters:params success:^(AFHTTPRequestOperation *operation, NSDictionary *responseObject) {
+    [PPHttpUtils GETWithURL:@"https://api.weibo.com/2/statuses/friends_timeline.json" prarams:params success:^(id json) {
         // 将 "微博字典"数组 转为 "微博模型"数组
-        NSArray *newStatuses = [PPStatus mj_objectArrayWithKeyValuesArray:responseObject[@"statuses"]];
-//        LogRed(@"%@", responseObject[@"statuses"]);
-        
-        
-        
+        NSArray *newStatuses = [PPStatus mj_objectArrayWithKeyValuesArray:json[@"statuses"]];
 //        NSString *path = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:@"model.plist"];
-//        
+//
 //        [[NSFileManager defaultManager] createFileAtPath:path contents:nil attributes:nil];
-        
+
 //        [responseObject[@"statuses"] writeToFile:path atomically:YES];
 
 //        BOOL boo=[NSKeyedArchiver archiveRootObject:responseObject[@"statuses"] toFile:path];
 //        if(boo){
 //                LogRed(@"%@", path);
 //        }
-
         
         // 将更多的微博数据，添加到总数组的最后面
         [self.statusFrames addObjectsFromArray:[self stausFramesWithStatuses:newStatuses]];
@@ -424,9 +399,10 @@
         //
         [self.tableView.mj_footer endRefreshing];
         
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+
+    } failure:^(NSError *error) {
         LogGreen(@"请求失败-%@", error);
-        
+
     }];
 }
 

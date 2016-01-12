@@ -8,7 +8,7 @@
 
 #import "PPAccount.h"
 
-#import "MJExtension.h"
+//#import "MJExtension.h"
 
 @implementation PPAccount
  /**  归档的实现 ***/
@@ -21,6 +21,8 @@
     NSDate *creatDate = [NSDate date];
     self.created_time = creatDate;
 }
+
+
 /**
  *  当一个对象要归档进沙盒时, 就会调用这个方法
  *

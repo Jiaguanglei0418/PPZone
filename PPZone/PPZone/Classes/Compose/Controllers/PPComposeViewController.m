@@ -11,7 +11,7 @@
 #import "UIBarButtonItem+Extension.h"
 #import "PPTextView.h" // 输入框
 #import "PPComposeToolbar.h" // 工具条
-
+#import "PPComposePhotosView.h" // 发微博 imageView
 
 @interface PPComposeViewController ()<UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextViewDelegate, PPComposeToolbarDelegate>
 
@@ -19,8 +19,8 @@
 PROPERTYWEAK(PPTextView, textView)
 // 工具条
 PROPERTYWEAK(PPComposeToolbar, toolbar)
-
-PROPERTYWEAK(UIImageView, imageView)
+// 图片View
+PROPERTYWEAK(PPComposePhotosView, photosView)
 
 @end
 
@@ -39,6 +39,7 @@ PROPERTYWEAK(UIImageView, imageView)
     }
     return _textView;
 }
+
 /**
  *  工具条
  */
@@ -52,7 +53,6 @@ PROPERTYWEAK(UIImageView, imageView)
     }
     return _toolbar;
 }
-
 
 // 弹出键盘, (减缓卡顿)
 - (void)viewWillAppear:(BOOL)animated
@@ -90,19 +90,21 @@ PROPERTYWEAK(UIImageView, imageView)
 
     // 3. 添加工具条
     [self setupToolbar];
-//
-//    // 添加相册
-    [self setupImageView];
+
+    // 添加相册
+    [self setupPhotosView];
 
 }
 #pragma mark - 设置照片内容
-- (void)setupImageView
+- (void)setupPhotosView
 {
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.textView.width, self.textView.height)];
+    CGFloat photosW = self.textView.width;
+    CGFloat photosY = 80;
+    CGFloat photosH = self.textView.height - photosY;
+    PPComposePhotosView *photosView = [[PPComposePhotosView alloc] initWithFrame:CGRectMake(0, photosY, photosW, photosH)];
     
-    [self.textView  addSubview:imageView];
-    
-    _imageView = imageView;
+    [self.textView  addSubview:photosView];
+    _photosView = photosView;
 }
 
 #pragma mark - 设置工具栏内容
@@ -170,11 +172,11 @@ PROPERTYWEAK(UIImageView, imageView)
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info
 {
     [picker dismissViewControllerAnimated:YES completion:^{
-        LogRed(@"%@", info);
+//        LogRed(@"%@", info);
     }];
     
     UIImage *image = info[UIImagePickerControllerOriginalImage];
-    self.imageView.image = image;
+    [self.photosView addPhoto:image];
 }
 
 #pragma mark - 设置导航栏内容
@@ -216,7 +218,7 @@ PROPERTYWEAK(UIImageView, imageView)
 }
 
 - (void)send {
-    if (self.textView.photos.count) {
+    if ([self.photosView totalPhotos].count) {
         [self sendWithImage];
     } else {
         [self sendWithoutImage];
@@ -234,26 +236,52 @@ PROPERTYWEAK(UIImageView, imageView)
     /**	access_token true string*/
     /**	pic true binary 微博的配图。*/
     
-    // 1.请求管理者
-    AFHTTPRequestOperationManager *mgr = [AFHTTPRequestOperationManager manager];
+//    // 1.请求管理者
+//    AFHTTPRequestOperationManager *mgr = [AFHTTPRequestOperationManager manager];
+//    
+
+//    
+//    // 3.发送请求
+//    [mgr POST:@"https://upload.api.weibo.com/2/statuses/upload.json" parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+//        
+//        NSArray *totalPhotos = [self.photosView totalPhotos];
+//        [totalPhotos enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//            // 拼接文件数据
+//            NSData *data = UIImageJPEGRepresentation(obj, 1.0);
+//            [formData appendPartWithFileData:data name:@"pic" fileName:[NSString stringWithFormat:@"count%lu", idx] mimeType:@"image/jpeg"];
+//        }];
+//        
+//    } success:^(AFHTTPRequestOperation *operation, NSDictionary *responseObject) {
+//        [MBProgressHUD showSuccess:@"发送成功"];
+//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//        [MBProgressHUD showError:@"发送失败"];
+//    }];
     
     // 2.拼接请求参数
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     params[@"access_token"] = [PPAccountManager account].access_token;
     params[@"status"] = self.textView.text;
     
-    // 3.发送请求
-    [mgr POST:@"https://upload.api.weibo.com/2/statuses/upload.json" parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+    // 拼接照片数据
+    NSMutableArray *formDataArray = [NSMutableArray array];
+    NSArray *totalPhotos = [self.photosView totalPhotos];
+    
+    [totalPhotos enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         // 拼接文件数据
-        UIImage *image = [self.textView.photos firstObject];
-        NSData *data = UIImageJPEGRepresentation(image, 1.0);
-        [formData appendPartWithFileData:data name:@"pic" fileName:@"test.jpg" mimeType:@"image/jpeg"];
-    } success:^(AFHTTPRequestOperation *operation, NSDictionary *responseObject) {
-        [MBProgressHUD showSuccess:@"发送成功"];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [MBProgressHUD showError:@"发送失败"];
+        PPFormData *formData = [[PPFormData alloc] init];
+        formData.data = UIImageJPEGRepresentation(obj, 1.0);
+        formData.name = @"pic";
+        formData.filename = [NSString stringWithFormat:@"count%lu", idx];
+        formData.mimeType = @"image/jpeg";
+        
+        [formDataArray addObject:formData];
     }];
-
+    
+    [PPHttpUtils POSTWithURL:@"https://upload.api.weibo.com/2/statuses/upload.json" prarams:params formDataArray:formDataArray success:^(id json) {
+         [MBProgressHUD showSuccess:@"发送成功"];
+    } failure:^(NSError *error) {
+         [MBProgressHUD showSuccess:@"发送失败"];
+    }];
     
     
 }
@@ -264,21 +292,29 @@ PROPERTYWEAK(UIImageView, imageView)
     // 参数:
     /**	status true string 要发布的微博文本内容，必须做URLencode，内容不超过140个汉字。*/
     /**	access_token true string*/
-    // 1.请求管理者
-    AFHTTPRequestOperationManager *mgr = [AFHTTPRequestOperationManager manager];
-    
+//    // 1.请求管理者
+//    AFHTTPRequestOperationManager *mgr = [AFHTTPRequestOperationManager manager];
+//    
+//    // 2.拼接请求参数
+//    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+//    params[@"access_token"] = [PPAccountManager account].access_token;
+//    params[@"status"] = self.textView.text;
+//    
+//    // 3.发送请求
+//    [mgr POST:@"https://api.weibo.com/2/statuses/update.json" parameters:params success:^(AFHTTPRequestOperation *operation, NSDictionary *responseObject) {
+//        [MBProgressHUD showSuccess:@"发送成功"];
+//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//        [MBProgressHUD showError:@"发送失败"];
+//    }];
     // 2.拼接请求参数
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     params[@"access_token"] = [PPAccountManager account].access_token;
     params[@"status"] = self.textView.text;
-    
-    // 3.发送请求
-    [mgr POST:@"https://api.weibo.com/2/statuses/update.json" parameters:params success:^(AFHTTPRequestOperation *operation, NSDictionary *responseObject) {
-        [MBProgressHUD showSuccess:@"发送成功"];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [MBProgressHUD showError:@"发送失败"];
+    [PPHttpUtils POSTWithURL:@"https://api.weibo.com/2/statuses/update.json" prarams:params success:^(id json) {
+         [MBProgressHUD showSuccess:@"发送成功"];
+    } failure:^(NSError *error) {
+         [MBProgressHUD showSuccess:@"发送失败"];
     }];
-
 }
 
 #pragma mark - 监听TextView内容改变

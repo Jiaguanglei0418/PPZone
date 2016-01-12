@@ -6,6 +6,10 @@
 //  Copyright © 2016年 roseonly. All rights reserved.
 //
 
+/**
+ *  自定义 textView --- 能够展示placeHolder, imageView
+ **/
+
 #import <UIKit/UIKit.h>
 
 @interface PPTextView : UITextView

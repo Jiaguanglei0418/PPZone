@@ -30,17 +30,22 @@
         
         // 2. 初始化
         self.font = [UIFont systemFontOfSize:18];
+        self.alwaysBounceVertical = YES;
     }
     return self;
 }
 
+
 - (void)setupPlaceholder
 {
     UILabel *placeholder = [[UILabel alloc] init];
-    [self addSubview:placeholder];
+    [self insertSubview:placeholder belowSubview:self];
     placeholder.backgroundColor = [UIColor clearColor];
     placeholder.textColor = [UIColor lightGrayColor];
     placeholder.font = [UIFont systemFontOfSize:19];
+    // 换行
+    placeholder.numberOfLines = 0;
+    [placeholder sizeToFit];
     _placeholder = placeholder;
 }
 
@@ -49,8 +54,8 @@
 {
     [super layoutSubviews];
     
-    _placeholder.frame = CGRectMake(3, 0, self.width - 6, 44);
-    
+    _placeholder.frame = CGRectInset(self.frame, 2, 5);
+    [_placeholder sizeToFit];
     
 }
 @end

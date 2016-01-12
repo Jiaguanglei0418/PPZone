@@ -25,4 +25,5 @@ typedef void (^myBlock)(MyButton *button);
 
 + (MyButton *)buttonWithFrame:(CGRect)frame type:(UIButtonType)type title:(NSString *)title titleColor:(UIColor *)color image:(UIImage *)image selectedImage:(UIImage *)seleImage backgroundImage:(UIImage *)backImage andBlock:(myBlock)block;
 
++ (MyButton *)addToolbarButtonWithIcon:(NSString *)icon highlightedIcon:(NSString *)highlightedIcon tag:(NSInteger)tag target:(id)target andAction:(SEL)sel;
 @end

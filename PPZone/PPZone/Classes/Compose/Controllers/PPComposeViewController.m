@@ -10,14 +10,17 @@
 #import "PPAccountManager.h"
 #import "UIBarButtonItem+Extension.h"
 #import "PPTextView.h" // 输入框
+#import "PPComposeToolbar.h" // 工具条
 
 
+@interface PPComposeViewController ()<UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextViewDelegate, PPComposeToolbarDelegate>
 
-@interface PPComposeViewController ()<UIImagePickerControllerDelegate, UINavigationControllerDelegate>
-
+// textView
 PROPERTYWEAK(PPTextView, textView)
+// 工具条
+PROPERTYWEAK(PPComposeToolbar, toolbar)
 
-
+PROPERTYWEAK(UIImageView, imageView)
 
 @end
 
@@ -30,11 +33,24 @@ PROPERTYWEAK(PPTextView, textView)
     if (!_textView) {
         PPTextView *textView = [[PPTextView alloc] init];
         textView.frame = self.view.bounds;
-        textView.placeholder.text = @" 请输入微博内容 ... ";
+        textView.placeholder.text = @" 请输入微博内容 ...";
         [self.view addSubview:textView];
         _textView = textView;
     }
     return _textView;
+}
+/**
+ *  工具条
+ */
+- (PPComposeToolbar *)toolbar
+{
+    if (!_toolbar) {
+        PPComposeToolbar *toolbar = [PPComposeToolbar composeToolbar];
+        toolbar.frame = CGRectMake(0, PP_SCREEN_HIGHT - 44, self.view.width, 44);
+        [self.view addSubview:toolbar];
+        _toolbar = toolbar;
+    }
+    return _toolbar;
 }
 
 
@@ -43,9 +59,22 @@ PROPERTYWEAK(PPTextView, textView)
 {
     [super viewWillAppear:animated];
     
+    
+    // 1. 注册通知, 监听键盘状态
+    [PPNOTICEFICATION addObserver:self selector:@selector(keyboardDidShowMethod:) name:UIKeyboardDidShowNotification object:nil];
+    [PPNOTICEFICATION addObserver:self selector:@selector(keyboardDidHideMethod:) name:UIKeyboardDidHideNotification object:nil];
+    
+    // 2. 注册通知, 监听文本改变
+    [PPNOTICEFICATION addObserver:self selector:@selector(textViewTextDidChange) name:UITextViewTextDidChangeNotification object:self.textView];
+    
     [self.textView becomeFirstResponder];
 }
 
+// 拖动textView, 键盘消失
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    [self.textView endEditing:YES];
+}
 
 - (void)viewDidLoad
 {
@@ -53,18 +82,99 @@ PROPERTYWEAK(PPTextView, textView)
     
     self.view.backgroundColor = [UIColor whiteColor];
     
-    // 设置导航栏内容
+    // 1. 设置导航栏内容
     [self setupNav];
-    LogRed(@"%d", self.navigationItem.rightBarButtonItem.isEnabled);
-    // 添加输入控件
+    
+    // 2. 添加输入控件
     [self setupTextView];
-//
-//    // 添加工具条
-//    [self setupToolbar];
-//    
-//    // 添加相册
-//    [self setupPhotosView];
 
+    // 3. 添加工具条
+    [self setupToolbar];
+//
+//    // 添加相册
+    [self setupImageView];
+
+}
+#pragma mark - 设置照片内容
+- (void)setupImageView
+{
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.textView.width, self.textView.height)];
+    
+    [self.textView  addSubview:imageView];
+    
+    _imageView = imageView;
+}
+
+#pragma mark - 设置工具栏内容
+- (void)setupToolbar
+{
+    self.toolbar.delegate = self;
+}
+#pragma mark -- toolbarDeleagete
+- (void)composeToolbar:(PPComposeToolbar *)toolbar didClickedToolbarButton:(PPComposeToolbarButtonType)composeToolbarButtonType
+{
+    switch (composeToolbarButtonType) {
+        case PPComposeToolbarButtonTypeCamera: { // 照相
+            [self presentPhotoCameraViewController];
+            break;
+        }
+        case PPComposeToolbarButtonTypePicture: { // 相册
+            [self presentPhotoAlbumViewController];
+            break;
+        }
+        case PPComposeToolbarButtonTypeMention: { // 提到我的
+            LogRed(@"__PPComposeToolbarButtonTypeMention _");
+            break;
+        }
+        case PPComposeToolbarButtonTypeTrend: { // 关注
+            LogRed(@"PPComposeToolbarButtonTypeTrend _");
+
+            break;
+        }
+        case PPComposeToolbarButtonTypeEmotion: { // 表情
+             LogRed(@"PPComposeToolbarButtonTypeEmotion _");
+            break;
+        }
+    }
+}
+
+// 打开相册
+- (void)presentPhotoAlbumViewController
+{
+    /**
+     UIImagePickerControllerSourceTypePhotoLibrary,
+     UIImagePickerControllerSourceTypeCamera,
+     UIImagePickerControllerSourceTypeSavedPhotosAlbum
+     */
+    
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    picker.delegate = self;
+    [self presentViewController:picker animated:YES completion:^{
+        
+    }];
+}
+
+
+// 打开相机
+- (void)presentPhotoCameraViewController
+{
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+    picker.delegate = self;
+    [self presentViewController:picker animated:YES completion:^{
+        
+    }];
+}
+#pragma mark - imagePikerDelegate
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info
+{
+    [picker dismissViewControllerAnimated:YES completion:^{
+        LogRed(@"%@", info);
+    }];
+    
+    UIImage *image = info[UIImagePickerControllerOriginalImage];
+    self.imageView.image = image;
 }
 
 #pragma mark - 设置导航栏内容
@@ -171,14 +281,14 @@ PROPERTYWEAK(PPTextView, textView)
 
 }
 
-#pragma mark - 设置导航栏内容
+#pragma mark - 监听TextView内容改变
 - (void)setupTextView
 {
     // 1. 创建textView
+    self.textView.delegate = self;
     
-    // 2. 注册通知, 监听文本改变
-    [PPNOTICEFICATION addObserver:self selector:@selector(textViewTextDidChange) name:UITextViewTextDidChangeNotification object:self.textView];
 }
+
 // 监听文字改变
 - (void)textViewTextDidChange
 {
@@ -191,10 +301,35 @@ PROPERTYWEAK(PPTextView, textView)
     }
 }
 
+#pragma mark - 监听键盘show hide
+- (void)keyboardDidShowMethod:(NSNotification *)notice
+{
+    // 1. 取出键盘的frame
+    CGRect keyboardFrame = [notice.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    // 2. 取出键盘动画时间
+    CGFloat keyboardTime = [notice.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue];
+    
+    [UIView animateWithDuration:keyboardTime animations:^{
+        self.toolbar.transform = CGAffineTransformMakeTranslation(0, -keyboardFrame.size.height);
+    }];
+}
+
+- (void)keyboardDidHideMethod:(NSNotification *)notice
+{
+    CGFloat keyboardTime = [notice.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue];
+    [UIView animateWithDuration:keyboardTime animations:^{
+        self.toolbar.transform = CGAffineTransformConcat(CGAffineTransformMakeRotation(M_PI), CGAffineTransformMakeScale(1.5, 1.5));
+    } completion:^(BOOL finished) {
+        self.toolbar.transform = CGAffineTransformIdentity;
+    }];
+}
+
 
 
 // 移除通知
 - (void)dealloc{
     [PPNOTICEFICATION removeObserver:self name:UITextViewTextDidChangeNotification object:self.textView];
+    [PPNOTICEFICATION removeObserver:self name:UIKeyboardDidShowNotification object:nil];
+    [PPNOTICEFICATION removeObserver:self name:UIKeyboardDidHideNotification object:nil];
 }
 @end

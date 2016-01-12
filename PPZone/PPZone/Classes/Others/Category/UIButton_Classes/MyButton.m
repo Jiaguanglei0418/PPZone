@@ -10,6 +10,20 @@
 
 @implementation MyButton
 
++ (MyButton *)addToolbarButtonWithIcon:(NSString *)icon highlightedIcon:(NSString *)highlightedIcon tag:(NSInteger)tag target:(id)target andAction:(SEL)sel
+{
+    MyButton *btn = [self buttonWithFrame:CGRectZero type:UIButtonTypeCustom title:nil target:self andAction:sel];
+    [btn setImage:[UIImage imageNamed:icon] forState:UIControlStateNormal];
+    [btn setImage:[UIImage imageNamed:highlightedIcon] forState:UIControlStateHighlighted];
+    btn.tag = tag;
+    
+    if ([target isKindOfClass:[UIView class]]) {
+        [target addSubview:btn];
+    }
+    
+    return btn;
+}
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];

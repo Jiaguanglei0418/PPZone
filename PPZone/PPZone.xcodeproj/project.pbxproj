@@ -65,6 +65,7 @@
 		92F219701C450F0C009F32A7 /* PPUserInfoHttpUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 92F2196F1C450F0C009F32A7 /* PPUserInfoHttpUtils.m */; };
 		92F219751C4605C3009F32A7 /* PPComposeHttpUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 92F219741C4605C3009F32A7 /* PPComposeHttpUtils.m */; };
 		92F219791C46293E009F32A7 /* PPBaseParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 92F219781C46293E009F32A7 /* PPBaseParams.m */; };
+		92F2197E1C462E6B009F32A7 /* PPAuthorHttpUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 92F2197D1C462E6B009F32A7 /* PPAuthorHttpUtils.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -184,6 +185,8 @@
 		92F219741C4605C3009F32A7 /* PPComposeHttpUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPComposeHttpUtils.m; sourceTree = "<group>"; };
 		92F219771C46293E009F32A7 /* PPBaseParams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPBaseParams.h; sourceTree = "<group>"; };
 		92F219781C46293E009F32A7 /* PPBaseParams.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPBaseParams.m; sourceTree = "<group>"; };
+		92F2197C1C462E6B009F32A7 /* PPAuthorHttpUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPAuthorHttpUtils.h; sourceTree = "<group>"; };
+		92F2197D1C462E6B009F32A7 /* PPAuthorHttpUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPAuthorHttpUtils.m; sourceTree = "<group>"; };
 		95529DCEE65CBA596A6B10C7 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -767,6 +770,7 @@
 		92B2D2461C03078600335F36 /* OAuth */ = {
 			isa = PBXGroup;
 			children = (
+				92F2197A1C462E4B009F32A7 /* Utils */,
 				92B2D2701C035FC800335F36 /* Tools */,
 				92B2D2471C03078600335F36 /* Controllers */,
 				92B2D2691C032CCD00335F36 /* Models */,
@@ -962,6 +966,23 @@
 			path = PPBaseParams;
 			sourceTree = "<group>";
 		};
+		92F2197A1C462E4B009F32A7 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				92F2197B1C462E4B009F32A7 /* PPAuthorHttpUtils */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		92F2197B1C462E4B009F32A7 /* PPAuthorHttpUtils */ = {
+			isa = PBXGroup;
+			children = (
+				92F2197C1C462E6B009F32A7 /* PPAuthorHttpUtils.h */,
+				92F2197D1C462E6B009F32A7 /* PPAuthorHttpUtils.m */,
+			);
+			path = PPAuthorHttpUtils;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1096,6 +1117,7 @@
 				920893EE1BFDD337003560D6 /* NSString+Extention.m in Sources */,
 				92527BF41C3F65EA00377FC6 /* PPIconView.m in Sources */,
 				92F219661C44CD0B009F32A7 /* PPHttpUtils.m in Sources */,
+				92F2197E1C462E6B009F32A7 /* PPAuthorHttpUtils.m in Sources */,
 				92527BFB1C3F980B00377FC6 /* PPComposeViewController.m in Sources */,
 				920893DF1BFDD337003560D6 /* PPDropdownViewController.m in Sources */,
 				920893F01BFDD337003560D6 /* MyButton.m in Sources */,

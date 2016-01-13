@@ -6,6 +6,10 @@
 //  Copyright © 2015年 roseonly. All rights reserved.
 //
 
+/**
+ *  封装的 Author授权, 业务工具类
+ */
+
 #import <UIKit/UIKit.h>
 
 @interface PPAuthViewController : UIViewController

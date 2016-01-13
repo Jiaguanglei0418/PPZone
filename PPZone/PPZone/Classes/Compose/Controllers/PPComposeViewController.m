@@ -13,6 +13,8 @@
 #import "PPComposeToolbar.h" // 工具条
 #import "PPComposePhotosView.h" // 发微博 imageView
 
+#import "PPComposeHttpUtils.h" // 网络请求工具类
+
 @interface PPComposeViewController ()<UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextViewDelegate, PPComposeToolbarDelegate>
 
 // textView
@@ -235,35 +237,12 @@ PROPERTYWEAK(PPComposePhotosView, photosView)
     /**	status true string 要发布的微博文本内容，必须做URLencode，内容不超过140个汉字。*/
     /**	access_token true string*/
     /**	pic true binary 微博的配图。*/
-    
-//    // 1.请求管理者
-//    AFHTTPRequestOperationManager *mgr = [AFHTTPRequestOperationManager manager];
-//    
-
-//    
-//    // 3.发送请求
-//    [mgr POST:@"https://upload.api.weibo.com/2/statuses/upload.json" parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-//        
-//        NSArray *totalPhotos = [self.photosView totalPhotos];
-//        [totalPhotos enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-//            // 拼接文件数据
-//            NSData *data = UIImageJPEGRepresentation(obj, 1.0);
-//            [formData appendPartWithFileData:data name:@"pic" fileName:[NSString stringWithFormat:@"count%lu", idx] mimeType:@"image/jpeg"];
-//        }];
-//        
-//    } success:^(AFHTTPRequestOperation *operation, NSDictionary *responseObject) {
-//        [MBProgressHUD showSuccess:@"发送成功"];
-//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        [MBProgressHUD showError:@"发送失败"];
-//    }];
-    
     // 2.拼接请求参数
-    NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    params[@"access_token"] = [PPAccountManager account].access_token;
-    params[@"status"] = self.textView.text;
-    
+    PPComposeHttpUtilsParams *param = [[PPComposeHttpUtilsParams alloc] init];
+    param.access_token = [PPAccountManager account].access_token;
+    param.status = self.textView.text;
+    param.formdata = [NSMutableArray array];
     // 拼接照片数据
-    NSMutableArray *formDataArray = [NSMutableArray array];
     NSArray *totalPhotos = [self.photosView totalPhotos];
     
     [totalPhotos enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -274,46 +253,27 @@ PROPERTYWEAK(PPComposePhotosView, photosView)
         formData.filename = [NSString stringWithFormat:@"count%lu", idx];
         formData.mimeType = @"image/jpeg";
         
-        [formDataArray addObject:formData];
+        [param.formdata addObject:formData];
     }];
     
-    [PPHttpUtils POSTWithURL:@"https://upload.api.weibo.com/2/statuses/upload.json" prarams:params formDataArray:formDataArray success:^(id json) {
-         [MBProgressHUD showSuccess:@"发送成功"];
+    [PPComposeHttpUtils composeWithPhotoesParams:param success:^{
+        [MBProgressHUD showSuccess:@"发送成功"];
     } failure:^(NSError *error) {
-         [MBProgressHUD showSuccess:@"发送失败"];
+        [MBProgressHUD showSuccess:@"发送失败"];
     }];
-    
-    
 }
 
 - (void)sendWithoutImage
 {
-    // URL: https://api.weibo.com/2/statuses/update.json
-    // 参数:
-    /**	status true string 要发布的微博文本内容，必须做URLencode，内容不超过140个汉字。*/
-    /**	access_token true string*/
-//    // 1.请求管理者
-//    AFHTTPRequestOperationManager *mgr = [AFHTTPRequestOperationManager manager];
-//    
-//    // 2.拼接请求参数
-//    NSMutableDictionary *params = [NSMutableDictionary dictionary];
-//    params[@"access_token"] = [PPAccountManager account].access_token;
-//    params[@"status"] = self.textView.text;
-//    
-//    // 3.发送请求
-//    [mgr POST:@"https://api.weibo.com/2/statuses/update.json" parameters:params success:^(AFHTTPRequestOperation *operation, NSDictionary *responseObject) {
-//        [MBProgressHUD showSuccess:@"发送成功"];
-//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        [MBProgressHUD showError:@"发送失败"];
-//    }];
     // 2.拼接请求参数
-    NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    params[@"access_token"] = [PPAccountManager account].access_token;
-    params[@"status"] = self.textView.text;
-    [PPHttpUtils POSTWithURL:@"https://api.weibo.com/2/statuses/update.json" prarams:params success:^(id json) {
-         [MBProgressHUD showSuccess:@"发送成功"];
+    PPComposeHttpUtilsParams *param = [[PPComposeHttpUtilsParams alloc] init];
+    param.access_token = [PPAccountManager account].access_token;
+    param.status = self.textView.text;
+    
+    [PPComposeHttpUtils composeParams:param success:^{
+        [MBProgressHUD showSuccess:@"发送成功"];
     } failure:^(NSError *error) {
-         [MBProgressHUD showSuccess:@"发送失败"];
+        [MBProgressHUD showSuccess:@"发送失败"];
     }];
 }
 

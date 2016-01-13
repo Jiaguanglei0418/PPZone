@@ -22,6 +22,22 @@
     PPSearchBar *searchBar = [PPSearchBar searchBarWithFrame:CGRectMake(0, 0, PP_SCREEN_WIDTH - 40, 30)];
     
     self.navigationItem.titleView = searchBar;
+    
+    
+    UIView *back = [[UIView alloc] initWithFrame:CGRectMake(100, 100, 200, 200)];
+    back.backgroundColor = [UIColor lightGrayColor];
+    [self.view addSubview:back];
+    LogGreen(@"back -- %@", NSStringFromCGRect(back.frame));
+    
+    UIView *red = [[UIView alloc] initWithFrame:CGRectMake(50, 50, 100, 100)];
+    red.backgroundColor = [UIColor redColor];
+    [back addSubview:red];
+     LogYellow(@"red -- %@", NSStringFromCGRect(red.frame));
+    
+    
+    
+    CGRect newFrame = [red.superview convertRect:red.frame toView:self.view];
+    LogRed(@"%@", NSStringFromCGRect(newFrame));
 }
 
 

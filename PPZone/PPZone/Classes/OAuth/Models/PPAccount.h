@@ -20,7 +20,7 @@
 //@property (nonatomic, copy) NSString *remind_in;
 
 /**  uid	string	当前授权用户的UID。 ***/
-@property (nonatomic, copy) NSString *uid;
+@property (nonatomic, strong) NSNumber *uid;
 
  /**  判断存储账号的时间 (accessToken获得时间)***/
 @property (nonatomic, strong) NSDate *created_time;

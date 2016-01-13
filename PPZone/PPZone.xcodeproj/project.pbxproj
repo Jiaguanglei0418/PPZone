@@ -61,6 +61,10 @@
 		92F2195E1C4389BC009F32A7 /* PPComposeToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 92F2195D1C4389BC009F32A7 /* PPComposeToolbar.m */; };
 		92F219611C44A835009F32A7 /* PPComposePhotosView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92F219601C44A835009F32A7 /* PPComposePhotosView.m */; };
 		92F219661C44CD0B009F32A7 /* PPHttpUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 92F219651C44CD0B009F32A7 /* PPHttpUtils.m */; };
+		92F2196D1C44E930009F32A7 /* PPStatusHttpUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 92F2196C1C44E930009F32A7 /* PPStatusHttpUtils.m */; };
+		92F219701C450F0C009F32A7 /* PPUserInfoHttpUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 92F2196F1C450F0C009F32A7 /* PPUserInfoHttpUtils.m */; };
+		92F219751C4605C3009F32A7 /* PPComposeHttpUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 92F219741C4605C3009F32A7 /* PPComposeHttpUtils.m */; };
+		92F219791C46293E009F32A7 /* PPBaseParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 92F219781C46293E009F32A7 /* PPBaseParams.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -172,6 +176,14 @@
 		92F219641C44CD0B009F32A7 /* PPHttpUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPHttpUtils.h; sourceTree = "<group>"; };
 		92F219651C44CD0B009F32A7 /* PPHttpUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPHttpUtils.m; sourceTree = "<group>"; };
 		92F219681C44CDED009F32A7 /* Singleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Singleton.h; sourceTree = "<group>"; };
+		92F2196B1C44E930009F32A7 /* PPStatusHttpUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPStatusHttpUtils.h; sourceTree = "<group>"; };
+		92F2196C1C44E930009F32A7 /* PPStatusHttpUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPStatusHttpUtils.m; sourceTree = "<group>"; };
+		92F2196E1C450F0C009F32A7 /* PPUserInfoHttpUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPUserInfoHttpUtils.h; sourceTree = "<group>"; };
+		92F2196F1C450F0C009F32A7 /* PPUserInfoHttpUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPUserInfoHttpUtils.m; sourceTree = "<group>"; };
+		92F219731C4605C3009F32A7 /* PPComposeHttpUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPComposeHttpUtils.h; sourceTree = "<group>"; };
+		92F219741C4605C3009F32A7 /* PPComposeHttpUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPComposeHttpUtils.m; sourceTree = "<group>"; };
+		92F219771C46293E009F32A7 /* PPBaseParams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPBaseParams.h; sourceTree = "<group>"; };
+		92F219781C46293E009F32A7 /* PPBaseParams.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPBaseParams.m; sourceTree = "<group>"; };
 		95529DCEE65CBA596A6B10C7 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -223,6 +235,7 @@
 		920893701BFDD337003560D6 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				92F219691C44E8F5009F32A7 /* Utils(业务工具类) */,
 				920893741BFDD337003560D6 /* Dropdown */,
 				920893711BFDD337003560D6 /* Controllers */,
 				92DFAB881C059F6F00FEB988 /* Views */,
@@ -318,6 +331,7 @@
 		920893861BFDD337003560D6 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				92F219761C462909009F32A7 /* PPBaseParams */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -713,6 +727,7 @@
 		92527BF51C3F97E900377FC6 /* Compose */ = {
 			isa = PBXGroup;
 			children = (
+				92F219711C4605AE009F32A7 /* Utils */,
 				92527BF61C3F97E900377FC6 /* Controllers */,
 				92527BF71C3F97E900377FC6 /* Models */,
 				92527BF81C3F97E900377FC6 /* Views */,
@@ -902,6 +917,51 @@
 			path = PPHttpUtils;
 			sourceTree = "<group>";
 		};
+		92F219691C44E8F5009F32A7 /* Utils(业务工具类) */ = {
+			isa = PBXGroup;
+			children = (
+				92F2196A1C44E8F5009F32A7 /* PPStatusUtils */,
+			);
+			path = "Utils(业务工具类)";
+			sourceTree = "<group>";
+		};
+		92F2196A1C44E8F5009F32A7 /* PPStatusUtils */ = {
+			isa = PBXGroup;
+			children = (
+				92F2196B1C44E930009F32A7 /* PPStatusHttpUtils.h */,
+				92F2196C1C44E930009F32A7 /* PPStatusHttpUtils.m */,
+				92F2196E1C450F0C009F32A7 /* PPUserInfoHttpUtils.h */,
+				92F2196F1C450F0C009F32A7 /* PPUserInfoHttpUtils.m */,
+			);
+			path = PPStatusUtils;
+			sourceTree = "<group>";
+		};
+		92F219711C4605AE009F32A7 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				92F219721C4605AE009F32A7 /* PPComposeHttpUtils */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		92F219721C4605AE009F32A7 /* PPComposeHttpUtils */ = {
+			isa = PBXGroup;
+			children = (
+				92F219731C4605C3009F32A7 /* PPComposeHttpUtils.h */,
+				92F219741C4605C3009F32A7 /* PPComposeHttpUtils.m */,
+			);
+			path = PPComposeHttpUtils;
+			sourceTree = "<group>";
+		};
+		92F219761C462909009F32A7 /* PPBaseParams */ = {
+			isa = PBXGroup;
+			children = (
+				92F219771C46293E009F32A7 /* PPBaseParams.h */,
+				92F219781C46293E009F32A7 /* PPBaseParams.m */,
+			);
+			path = PPBaseParams;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1008,6 +1068,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92F219701C450F0C009F32A7 /* PPUserInfoHttpUtils.m in Sources */,
 				92527BFE1C3FB75B00377FC6 /* PPTextView.m in Sources */,
 				92527BE91C3D1ED700377FC6 /* PPStatusPhotoView.m in Sources */,
 				920894051BFDDBB2003560D6 /* PPDiscoverViewController.m in Sources */,
@@ -1023,6 +1084,7 @@
 				92DFAB911C059F6F00FEB988 /* PPLoadMoreFooter.m in Sources */,
 				920893E21BFDD337003560D6 /* PPSearchBar.m in Sources */,
 				920893E41BFDD337003560D6 /* PPTabBar.m in Sources */,
+				92F219791C46293E009F32A7 /* PPBaseParams.m in Sources */,
 				920893EF1BFDD337003560D6 /* UIBarButtonItem+Extension.m in Sources */,
 				92B2D2771C035FE900335F36 /* PPConst.m in Sources */,
 				920893E71BFDD337003560D6 /* PPMessageViewController.m in Sources */,
@@ -1044,6 +1106,8 @@
 				920893E11BFDD337003560D6 /* PPNavigationController.m in Sources */,
 				92DFAB9E1C05AE1200FEB988 /* PPPhoto.m in Sources */,
 				920893E81BFDD337003560D6 /* PPMessageDetailViewController.m in Sources */,
+				92F2196D1C44E930009F32A7 /* PPStatusHttpUtils.m in Sources */,
+				92F219751C4605C3009F32A7 /* PPComposeHttpUtils.m in Sources */,
 				920893EA1BFDD337003560D6 /* Foundation+Log.m in Sources */,
 				920893F61BFDD337003560D6 /* UIView+Extension.m in Sources */,
 				920893EC1BFDD337003560D6 /* NSDateFormatter+Extention.m in Sources */,

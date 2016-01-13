@@ -14,7 +14,6 @@
 #import "PPDropdownMenu.h" // 下拉菜单
 #import "PPDropdownViewController.h"
 
-
 #import "PPAccountManager.h"
 
 #import "MJExtension.h"
@@ -25,6 +24,10 @@
 #import "PPLoadMoreFooter.h"
 #import "PPStatusFrame.h"
 #import "PPStatusCell.h"
+
+#import "PPStatusHttpUtils.h" // 业务工具类
+#import "PPUserInfoHttpUtils.h"
+
 @interface PPHomeViewController ()<PPDropdownMenuDelegate>
  /**  微博数组 ***/
 @property (nonatomic, strong) NSMutableArray *statusFrames;
@@ -125,51 +128,27 @@
      access_token	false	string	采用OAuth授权方式为必填参数，其他授权方式不需要此参数，OAuth授权后获得。
      uid	false	int64	需要查询的用户ID。
      */
-//    // 1. 请求管理者
-//    AFHTTPRequestOperationManager *mgr = [AFHTTPRequestOperationManager manager];
-//    mgr.responseSerializer = [AFHTTPResponseSerializer serializer];
-//    
-//    // 2. 拼接请求参数
-//    NSMutableDictionary *params = [NSMutableDictionary dictionary];
-//    PPAccount *account = [PPAccountManager account];
-//    
-//    params[@"access_token"] = account.access_token;
-//    params[@"uid"] = account.uid;
-//    
-//    // 3. GET 请求 -- 获取用户昵称
-//    [mgr GET:@"https://api.weibo.com/2/users/show.json" parameters:params success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) { // 成功
-//      
-//        
-//    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
-//        
-//    }];
-//    
     // 2. 拼接请求参数
-    NSMutableDictionary *params = [NSMutableDictionary dictionary];
     PPAccount *account = [PPAccountManager account];
-    params[@"access_token"] = account.access_token;
-    params[@"uid"] = account.uid;
     
-    [PPHttpUtils GETWithURL:@"https://api.weibo.com/2/users/show.json" prarams:params success:^(id json) {
-        // 获取返回数据类型
-//        LogYellow(@"%@", [NSString stringWithUTF8String:object_getClassName(json)]);
-        
+    PPUserInfoParam *param = [[PPUserInfoParam alloc] init];
+    param.access_token = account.access_token;
+    param.uid = account.uid;
+   
+    [PPUserInfoHttpUtils userInfoStatusesWithParams:param success:^(PPUserInfoResult *result) {
         // 获取标题按钮
-        PPUser *user = [PPUser mj_objectWithKeyValues:json];
-        //        NSString *name = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil][@"name"];
-        
         PPTitleButton *titleBtn = (PPTitleButton *)self.navigationItem.titleView;
-        // 设置名称
-        [titleBtn setTitle:user.name forState:UIControlStateNormal];
-        // 内容改了以后, 需要重新设置  ---  在setTitle中设置
-        //        [titleBtn sizeToFit];
-        // 存储昵称到沙盒中
-        account.name = user.name;
+//        // 设置名称
+        [titleBtn setTitle:result.name forState:UIControlStateNormal];
+
+//        // 存储昵称到沙盒中
+        account.name = result.name;
+        
+        [PPAccountManager saveAccout:account];
         
     } failure:^(NSError *error) {
-        LogRed(@"请求出错 -- %@", error);
+        LogRed(@"用户信息请求出错 -- %@", error);
     }];
-    
 }
 
 
@@ -239,22 +218,22 @@
     [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
     
     // 2. 拼接请求参数
-    NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    PPAccount *account = [PPAccountManager account];
-    params[@"access_token"] = account.access_token;
-    params[@"count"] = @5;
+    PPHomeStatusesParam *param = [PPHomeStatusesParam param];
+    param.access_token = [PPAccountManager account].access_token;
+    param.count = @5;
+
     // 取出最前面的微博(最新的微博, ID最大)
     PPStatusFrame *firstStatus = [self.statusFrames firstObject];
     // 指定 since_id 则返回ID比since_id大的微博数据, 默认为0
     if(firstStatus){
-        params[@"since_id"] = firstStatus.status.idstr;
+        param.since_id = @([firstStatus.status.idstr longLongValue]);
     }
 
-    [PPHttpUtils GETWithURL:@"https://api.weibo.com/2/statuses/friends_timeline.json"  prarams:params success:^(id json) {
+    [PPStatusHttpUtils homeNewStatusesWithParams:param success:^(PPHomeStatusesResult *result){
         // 获取返回数据
-        NSArray *newStatus = [PPStatus mj_objectArrayWithKeyValuesArray:json[@"statuses"]];
+//        NSArray *newStatus = [PPStatus mj_objectArrayWithKeyValuesArray:json[@"statuses"]];
         /**  将Status数组 转换成StatusFrame 数组 ***/
-        NSArray *newFrames = [self stausFramesWithStatuses:newStatus];
+        NSArray *newFrames = [self stausFramesWithStatuses:result.statuses];
         
         NSRange range = NSMakeRange(0, newFrames.count);
         [self.statusFrames insertObjects:newFrames atIndexes:[NSIndexSet indexSetWithIndexesInRange:range]];
@@ -272,7 +251,6 @@
         // 隐藏 下拉刷新
         [self.tableView.mj_header endRefreshing];
     }];
-    
 }
 
 /**
@@ -333,16 +311,17 @@
 - (void)setupUnreadStatusCount
 {
     // 2.拼接请求参数
-    PPAccount *account = [PPAccountManager account];
-    NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    params[@"access_token"] = account.access_token;
-    params[@"uid"] = account.uid;
+    PPUserInfoParam *param = [PPUserInfoParam param];
+//    param.access_token = account.access_token; // 写在父类中
+    param.uid = [PPAccountManager account].uid;
     
-    [PPHttpUtils GETWithURL:@"https://rm.api.weibo.com/2/remind/unread_count.json" prarams:params success:^(id json) {
+    [PPUserInfoHttpUtils userUnreadStatusesWithParams:param success:^(PPUserUnreadCount *result) {
         // @20 --> @"20"
         // NSNumber --> NSString
         // 设置提醒数字(微博的未读数)
-        NSString *status = [json[@"status"] description];
+//        LogRed(@"%@", result);
+//        NSString *status = [result.status description];
+        NSString *status = [NSString stringWithFormat:@"%d", result.status];
         if ([status isEqualToString:@"0"]) { // 如果是0，得清空数字
             self.tabBarItem.badgeValue = nil;
             [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
@@ -352,8 +331,9 @@
         }
 
     } failure:^(NSError *error) {
-        LogGreen(@"请求失败-%@", error);
+        LogGreen(@"未读消息请求失败-%@", error);
     }];
+    
 }
 
 /**
@@ -362,36 +342,38 @@
 - (void)loadMoreStatus
 {
     // 2.拼接请求参数
-    PPAccount *account = [PPAccountManager account];
-    NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    params[@"access_token"] = account.access_token;
-    params[@"count"] = @5;
+//    PPAccount *account = [PPAccountManager account];
+    PPHomeStatusesParam *param = [PPHomeStatusesParam param];
+    param.access_token = [PPAccountManager account].access_token;
+    param.count = @5;
+    
     // 取出最后面的微博（最新的微博，ID最大的微博）
     PPStatusFrame *lastStatus = [self.statusFrames lastObject];
     if (lastStatus) {
         // 若指定此参数，则返回ID小于或等于max_id的微博，默认为0。
         // id这种数据一般都是比较大的，一般转成整数的话，最好是long long类型
         long long maxId = lastStatus.status.idstr.longLongValue - 1;
-        params[@"max_id"] = @(maxId);
+        param.max_id = @(maxId);
     }
     
     // 3.发送请求
-    [PPHttpUtils GETWithURL:@"https://api.weibo.com/2/statuses/friends_timeline.json" prarams:params success:^(id json) {
+    [PPStatusHttpUtils homeMoreStatusesWithParams:param success:^(PPHomeStatusesResult *result) {
         // 将 "微博字典"数组 转为 "微博模型"数组
-        NSArray *newStatuses = [PPStatus mj_objectArrayWithKeyValuesArray:json[@"statuses"]];
-//        NSString *path = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:@"model.plist"];
-//
-//        [[NSFileManager defaultManager] createFileAtPath:path contents:nil attributes:nil];
-
-//        [responseObject[@"statuses"] writeToFile:path atomically:YES];
-
-//        BOOL boo=[NSKeyedArchiver archiveRootObject:responseObject[@"statuses"] toFile:path];
-//        if(boo){
-//                LogRed(@"%@", path);
-//        }
+//        NSArray *newStatuses = [PPStatus mj_objectArrayWithKeyValuesArray:json[@"statuses"]];
+        //        NSString *path = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:@"model.plist"];
+        //
+        //        [[NSFileManager defaultManager] createFileAtPath:path contents:nil attributes:nil];
+        
+        //        [responseObject[@"statuses"] writeToFile:path atomically:YES];
+        
+        //        BOOL boo=[NSKeyedArchiver archiveRootObject:responseObject[@"statuses"] toFile:path];
+        //        if(boo){
+        //                LogRed(@"%@", path);
+        //        }
         
         // 将更多的微博数据，添加到总数组的最后面
-        [self.statusFrames addObjectsFromArray:[self stausFramesWithStatuses:newStatuses]];
+        /*** 将status模型 转换成 statusFrameArray **/
+        [self.statusFrames addObjectsFromArray:[self stausFramesWithStatuses:result.statuses]];
         
         // 刷新表格
         [self.tableView reloadData];
@@ -399,10 +381,9 @@
         //
         [self.tableView.mj_footer endRefreshing];
         
-
+        
     } failure:^(NSError *error) {
         LogGreen(@"请求失败-%@", error);
-
     }];
 }
 

@@ -10,10 +10,9 @@
 #import "MJExtension.h"
 
 @implementation PPUserInfoHttpUtils
-// userinfo
+// unread
 + (void)userUnreadStatusesWithParams:(PPUserInfoParam *)params success:(void (^)(PPUserUnreadCount *))success failure:(void (^)(NSError * error))failure
 {
-    //FIXME:  解析数据有错 ------- 
     [PPHttpUtils GETWithURL:@"https://rm.api.weibo.com/2/remind/unread_count.json" prarams:params.mj_keyValues success:^(id json) {
         if (success) {
             
@@ -29,7 +28,7 @@
     
 }
 
-// unread
+// userInfo
 + (void)userInfoStatusesWithParams:(PPUserInfoParam *)params success:(void (^)(PPUserInfoResult *))success failure:(void (^)(NSError * error))failure
 {
     [PPHttpUtils GETWithURL:@"https://api.weibo.com/2/users/show.json" prarams:params.mj_keyValues success:^(id json) {
@@ -37,7 +36,6 @@
             // 将 "微博字典"数组 转为 "微博模型"数组
             PPUserInfoResult *result = [PPUserInfoResult mj_objectWithKeyValues:json];
             success(result);
-            LogRed(@"%@", result);
         }
     } failure:^(NSError *error) {
         

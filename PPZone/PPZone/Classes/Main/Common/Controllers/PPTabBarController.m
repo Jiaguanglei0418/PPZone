@@ -16,8 +16,15 @@
 #import "PPNavigationController.h"
 #import "MyButton.h"
 #import "PPTabBar.h"
-@interface PPTabBarController ()<PPTabBarDelegate>
 
+#import "PPUserInfoHttpUtils.h" // 请求用户信息 - 业务工具类
+#import "PPAccountManager.h"
+
+@interface PPTabBarController ()<PPTabBarDelegate>
+PROPERTYSTRONG(PPHomeViewController, homeVc)
+PROPERTYSTRONG(PPMessageViewController, messageVc)
+PROPERTYSTRONG(PPDiscoverViewController, discoverVc)
+PROPERTYSTRONG(PPProfileViewController, profileVc)
 @end
 
 @implementation PPTabBarController
@@ -31,20 +38,20 @@
     [super viewDidLoad];
    
     // 1. 设置子控制器
-    PPHomeViewController *homeVc = [[PPHomeViewController alloc] init];
-    PPMessageViewController *messageVc = [[PPMessageViewController alloc] init];
-    PPDiscoverViewController *discoverVc = [[PPDiscoverViewController alloc] init];
-    PPProfileViewController *profileVc = [[PPProfileViewController alloc] init];
+    _homeVc = [[PPHomeViewController alloc] init];
+    _messageVc = [[PPMessageViewController alloc] init];
+    _discoverVc = [[PPDiscoverViewController alloc] init];
+    _profileVc = [[PPProfileViewController alloc] init];
     
-    [self addChildVc:homeVc Title:@"首页" image:[UIImage imageNamed:@"tabbar_home"] selectedImage:[UIImage imageNamed:@"tabbar_home_selected"]];
-    [self addChildVc:messageVc Title:@"消息" image:[UIImage imageNamed:@"tabbar_message_center"] selectedImage:[UIImage imageNamed:@"tabbar_message_center_selected"]];
+    [self addChildVc:_homeVc Title:@"首页" image:[UIImage imageNamed:@"tabbar_home"] selectedImage:[UIImage imageNamed:@"tabbar_home_selected"]];
+    [self addChildVc:_messageVc Title:@"消息" image:[UIImage imageNamed:@"tabbar_message_center"] selectedImage:[UIImage imageNamed:@"tabbar_message_center_selected"]];
     
      /**  设置发微博 ***/
 //    [self addChildVc:[[UIViewController alloc] init] Title:@"发微博" image:nil selectedImage:nil];
     
-    [self addChildVc:discoverVc Title:@"发现" image:[UIImage imageNamed:@"tabbar_discover"] selectedImage:[UIImage imageNamed:@"tabbar_discover_selected"]];
+    [self addChildVc:_discoverVc Title:@"发现" image:[UIImage imageNamed:@"tabbar_discover"] selectedImage:[UIImage imageNamed:@"tabbar_discover_selected"]];
     
-    [self addChildVc:profileVc Title:@"我的" image:[UIImage imageNamed:@"tabbar_profile"] selectedImage:[UIImage imageNamed:@"tabbar_profile_selected"]];
+    [self addChildVc:_profileVc Title:@"我的" image:[UIImage imageNamed:@"tabbar_profile"] selectedImage:[UIImage imageNamed:@"tabbar_profile_selected"]];
     
     // 2. 更换自定义tabBar  ---  KVC 可以修改只读属性
     /**  可以修改只读 属性 ***/
@@ -58,6 +65,13 @@
     //   不允许修改tabBar的delegate属性, 应该写到设置之前;
     //    tabBar.delegate = self;
     
+    // 3. 设置badgeValue
+    // 5. 设置未读消息
+    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(setupUnreadStatusCount) userInfo:nil repeats:YES];
+    // 添加到子线程 (NSRunLoopCommonModes)
+    // 添加到主线程 (NSDefaultRunLoopMode)
+    [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
+    
 }
 
 #pragma mark -
@@ -66,6 +80,13 @@
 {
     PPComposeViewController *composeVC = [[PPComposeViewController alloc] init];
     [self presentViewController:[[PPNavigationController alloc] initWithRootViewController:composeVC] animated:YES completion:nil];
+}
+
+- (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item
+{
+    if ([item isEqual:_homeVc.tabBarItem]) {
+        [_homeVc refresh];
+    }
 }
 
 
@@ -90,6 +111,60 @@
     // 包装一个导航控制器
     PPNavigationController *nav = [[PPNavigationController alloc] initWithRootViewController:Vc];
     [self addChildViewController:nav];
+}
+
+#pragma mark -
+#pragma mark - 获得未读数
+- (void)setupUnreadStatusCount
+{
+    // 2.拼接请求参数
+    PPUserInfoParam *param = [PPUserInfoParam param];
+    //    param.access_token = account.access_token; // 写在父类中
+    param.uid = [PPAccountManager account].uid;
+    
+    [PPUserInfoHttpUtils userUnreadStatusesWithParams:param success:^(PPUserUnreadCount *result) {
+        // @20 --> @"20"
+        // NSNumber --> NSString
+        // 设置提醒数字(微博的未读数)
+        
+        
+        // 1. homeVC
+        NSString *status = [NSString stringWithFormat:@"%d", result.status];
+        if ([status isEqualToString:@"0"]) { // 如果是0，得清空数字
+            _homeVc.tabBarItem.badgeValue = nil;
+        } else { // 非0情况
+            _homeVc.tabBarItem.badgeValue = status;
+        }
+        
+        // 2. messageVC
+        NSString *messageCount = [NSString stringWithFormat:@"%d", result.messageCount];
+        if ([messageCount isEqualToString:@"0"]) { // 如果是0，得清空数字
+            _messageVc.tabBarItem.badgeValue = nil;
+        } else { // 非0情况
+            _messageVc.tabBarItem.badgeValue = messageCount;
+        }
+        
+        //  3. proVC
+        NSString *follower = [NSString stringWithFormat:@"%d", result.follower];
+        if ([follower isEqualToString:@"0"]) { // 如果是0，得清空数字
+            _profileVc.tabBarItem.badgeValue = nil;
+        } else { // 非0情况
+            _profileVc.tabBarItem.badgeValue = follower;
+
+        }
+        
+        // 4. applicationIconBadgeNumber
+        NSString *count = [NSString stringWithFormat:@"%d", result.count];
+        if ([count isEqualToString:@"0"]) { // 如果是0，得清空数字
+            [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+        } else { // 非0情况
+            [UIApplication sharedApplication].applicationIconBadgeNumber = count.intValue;
+        }
+        
+    } failure:^(NSError *error) {
+        LogGreen(@"未读消息请求失败-%@", error);
+    }];
+    
 }
 
 - (void)didReceiveMemoryWarning {

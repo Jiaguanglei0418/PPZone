@@ -35,7 +35,6 @@
 @interface PPUserInfoParam : PPBaseParams
 PROPERTYSTRONG(NSNumber, uid) // 用户id 未读消息
 
-
 @end
 
 #pragma mark - 用户信息 - 返回数据模型

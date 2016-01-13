@@ -60,10 +60,9 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     // 向操作系统申请后台运行资格, 能维持多久是不确定的.
-    [application beginBackgroundTaskWithExpirationHandler:^{
-        
-    }];
-    
+//    [application beginBackgroundTaskWithExpirationHandler:^{
+//        LogMagenta(@"--- beginBackgroundTaskWithExpirationHandler");
+//    }];
     /**
      *  app的状态
      *  1.死亡状态：没有打开app

@@ -26,7 +26,7 @@
 #import "PPStatusCell.h"
 
 #import "PPStatusHttpUtils.h" // 业务工具类
-#import "PPUserInfoHttpUtils.h"
+#import "PPUserInfoHttpUtils.h" // 请求用户信息 - 业务工具类
 
 @interface PPHomeViewController ()<PPDropdownMenuDelegate>
  /**  微博数组 ***/
@@ -60,11 +60,6 @@
  
     // 4. 集成刷新控件
     [self setupRefresh];
-    
-    // 5. 设置未读消息
-    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(setupUnreadStatusCount) userInfo:nil repeats:YES];
-    [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
-
 }
 #pragma mark -
 #pragma mark - 监听titleBtn的点击
@@ -304,36 +299,12 @@
     }];
 }
 
-
-/**
- *  获得未读数
- */
-- (void)setupUnreadStatusCount
+#pragma mark - 刷新状态
+- (void)refresh
 {
-    // 2.拼接请求参数
-    PPUserInfoParam *param = [PPUserInfoParam param];
-//    param.access_token = account.access_token; // 写在父类中
-    param.uid = [PPAccountManager account].uid;
-    
-    [PPUserInfoHttpUtils userUnreadStatusesWithParams:param success:^(PPUserUnreadCount *result) {
-        // @20 --> @"20"
-        // NSNumber --> NSString
-        // 设置提醒数字(微博的未读数)
-//        LogRed(@"%@", result);
-//        NSString *status = [result.status description];
-        NSString *status = [NSString stringWithFormat:@"%d", result.status];
-        if ([status isEqualToString:@"0"]) { // 如果是0，得清空数字
-            self.tabBarItem.badgeValue = nil;
-            [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
-        } else { // 非0情况
-            self.tabBarItem.badgeValue = status;
-            [UIApplication sharedApplication].applicationIconBadgeNumber = status.intValue;
-        }
-
-    } failure:^(NSError *error) {
-        LogGreen(@"未读消息请求失败-%@", error);
-    }];
-    
+    if (self.tabBarItem.badgeValue.intValue > 0) {
+        [self refreshStateChanged:nil];
+    }
 }
 
 /**

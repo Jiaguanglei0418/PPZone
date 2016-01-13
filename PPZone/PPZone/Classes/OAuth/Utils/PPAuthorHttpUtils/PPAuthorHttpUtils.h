@@ -14,6 +14,7 @@
 
 + (void)authorParams:(PPAuthorHttpParams *)params success:(void(^)(PPAccount *account))success failure:(void(^)(NSError *error)) failure;
 
+
 @end
 
 

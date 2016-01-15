@@ -305,7 +305,12 @@
 {
     if (self.tabBarItem.badgeValue.intValue > 0) {
         [self refreshStateChanged:nil];
+        
+        // 滚到最顶部
+        NSIndexPath *index = [NSIndexPath indexPathForRow:0 inSection:0];
+        [self.tableView scrollToRowAtIndexPath:index atScrollPosition:UITableViewScrollPositionTop animated:YES];
     }
+
 }
 
 /**

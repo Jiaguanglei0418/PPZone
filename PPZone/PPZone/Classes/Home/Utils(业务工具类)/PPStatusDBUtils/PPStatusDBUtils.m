@@ -10,6 +10,7 @@
 #import "PPAccountManager.h"
 #import "FMDB.h"
 #import "PPStatusHttpUtils.h"
+#import "PPStatus.h"
 /**
  *  采用多线程
  */
@@ -25,7 +26,7 @@ static FMDatabaseQueue *_dbQueue;
     
     // 2. 创建表
     [_dbQueue inDatabase:^(FMDatabase *db) {
-        BOOL suc = [db executeUpdate:@"CREATE TABLE IF NOT EXISTS t_statuses (id integer primary key autoincrement, access_token text, idstr text, dict blob);"];
+        BOOL suc = [db executeUpdate:@"CREATE TABLE IF NOT EXISTS t_statuses (id integer primary key autoincrement, access_token text, idstr text, status blob);"];
         if (suc) {
             LogRed(@"创建表成功!!!");
         }else{
@@ -37,24 +38,25 @@ static FMDatabaseQueue *_dbQueue;
 /**
  *  缓存字典数组
  */
-+ (void)addStatuses:(NSArray *)dictArray
++ (void)addStatuses:(NSArray *)statusArray
 {
-    [dictArray enumerateObjectsUsingBlock:^(NSDictionary * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    [statusArray enumerateObjectsUsingBlock:^(NSDictionary * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         [self addStatus:obj];
     }];
 }
 
 /**
- *  缓存字典
+ *  缓存 模型 数组
  */
-+ (void)addStatus:(NSDictionary *)dict
++ (void)addStatus:(NSDictionary *)status
 {
     // 3. 写入数据
     [_dbQueue inDatabase:^(FMDatabase *db) {
         NSString *token = [PPAccountManager account].access_token;
-        NSString *idstr = dict[@"idstr"];
-        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:dict];
-        [db executeUpdate:@"INSERT INTO t_statuses (access_token, idstr, dict) values(?, ?, ?)", token, idstr, data];
+        NSString *idstr = status[@"idstr"];
+        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:status];
+//        NSData *statusData = [];
+        [db executeUpdate:@"INSERT INTO t_statuses (access_token, idstr, status) values(?, ?, ?)", token, idstr, data];
 //        [db executeUpdate:@"INSERT INTO t_statuses (access_token, idstr, dict) values(?, ? , ?)", token, idstr, data];
     }];
     [_dbQueue close];
@@ -85,9 +87,9 @@ static FMDatabaseQueue *_dbQueue;
         }
         
         while([set next]) {
-            NSData *data = [set dataForColumn:@"dict"];
-            NSDictionary *dict = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-            [statuses addObject:dict];
+            NSData *data = [set dataForColumn:@"status"];
+            NSDictionary *status = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+            [statuses addObject:status];
         }
     }];
     [_dbQueue close];

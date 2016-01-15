@@ -9,13 +9,15 @@
 #import "PPStatus.h"
 #import "PPPhoto.h"
 #import "NSDate+Extention.h"
-
 @implementation PPStatus
+
+
 
 + (NSDictionary *)objectClassInArray
 {
     return @{@"pic_urls" : [PPPhoto class]};
 }
+
 
 /**
  1.今年
@@ -100,9 +102,7 @@
     //    range.length = [source rangeOfString:@"<" options:NSBackwardsSearch];
     if (range.location != NSNotFound) {
         _source = [NSString stringWithFormat:@"来自%@", [source substringWithRange:range]];
-    }else{
-        return;
+        
     }
-
 }
 @end

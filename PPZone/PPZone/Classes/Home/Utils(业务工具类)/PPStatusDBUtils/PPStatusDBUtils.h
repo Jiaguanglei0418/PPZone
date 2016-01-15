@@ -9,23 +9,24 @@
  *  微博数据处理 - 业务工具类
  */
 #import <Foundation/Foundation.h>
+@class PPStatus;
 @class PPHomeStatusesParam;
 
 @interface PPStatusDBUtils : NSObject
 /**
- *  缓存一条微博
+ *  缓存一条微博 -  模型
  *
  *  @param dict 需要缓存的微博数据
  */
-+ (void)addStatus:(NSDictionary *)dict;
++ (void)addStatus:(NSDictionary *)status;
 
 
 /**
  *  缓存多条微博
  *
- *  @param dict 需要缓存的微博数据
+ *  @param  需要缓存的 -  模型数组
  */
-+ (void)addStatuses:(NSArray *)dictArray;
++ (void)addStatuses:(NSArray *)statusArray;
 
 
 /**

@@ -7,8 +7,9 @@
 //
 
 #import "PPUser.h"
-//#import "MJExtension.h"
+#import "MJExtension.h"
 @implementation PPUser
+MJCodingImplementation
 - (void)setMbtype:(int)mbtype
 {
     _mbtype = mbtype;

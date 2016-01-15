@@ -7,7 +7,8 @@
 //
 
 #import "PPPhoto.h"
-
+#import "MJExtension.h"
 @implementation PPPhoto
+MJCodingImplementation
 
 @end

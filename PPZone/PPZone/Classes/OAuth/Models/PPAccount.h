@@ -25,6 +25,8 @@
  /**  判断存储账号的时间 (accessToken获得时间)***/
 @property (nonatomic, strong) NSDate *created_time;
 
+@property (nonatomic, strong) NSDate *expiresTime; // 账号的过期时间
+
  /**  用户的昵称 ***/
 @property (nonatomic, copy) NSString *name;
 

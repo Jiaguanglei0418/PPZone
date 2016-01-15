@@ -208,7 +208,7 @@
  */
 - (void)refreshStateChanged:(UIRefreshControl *)control
 {
-    // 未读消息数
+    // 1. 未读消息数
     self.tabBarItem.badgeValue = 0;
     [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
     
@@ -223,10 +223,11 @@
     if(firstStatus){
         param.since_id = @([firstStatus.status.idstr longLongValue]);
     }
-
+    
+    // 先从沙盒中读取数据
+    // 3. 如果沙盒中没有有效的数据, 网络请求数据
     [PPStatusHttpUtils homeNewStatusesWithParams:param success:^(PPHomeStatusesResult *result){
         // 获取返回数据
-//        NSArray *newStatus = [PPStatus mj_objectArrayWithKeyValuesArray:json[@"statuses"]];
         /**  将Status数组 转换成StatusFrame 数组 ***/
         NSArray *newFrames = [self stausFramesWithStatuses:result.statuses];
         
@@ -328,7 +329,7 @@
     }
     
     // 3.发送请求
-    [PPStatusHttpUtils homeMoreStatusesWithParams:param success:^(PPHomeStatusesResult *result) {
+    [PPStatusHttpUtils homeNewStatusesWithParams:param success:^(PPHomeStatusesResult *result) {
         // 将 "微博字典"数组 转为 "微博模型"数组
 //        NSArray *newStatuses = [PPStatus mj_objectArrayWithKeyValuesArray:json[@"statuses"]];
         //        NSString *path = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:@"model.plist"];

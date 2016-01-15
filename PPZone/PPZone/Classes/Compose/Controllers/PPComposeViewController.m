@@ -283,6 +283,7 @@ PROPERTYWEAK(PPComposePhotosView, photosView)
     // 1. 创建textView
     self.textView.delegate = self;
     
+    
 }
 
 // 监听文字改变
@@ -319,7 +320,6 @@ PROPERTYWEAK(PPComposePhotosView, photosView)
         self.toolbar.transform = CGAffineTransformIdentity;
     }];
 }
-
 
 
 // 移除通知

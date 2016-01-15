@@ -11,4 +11,7 @@
 @interface PPPhoto : NSObject
 /** 缩略图地址 */
 @property (nonatomic, copy) NSString *thumbnail_pic;
+
+// id - status_id
+
 @end

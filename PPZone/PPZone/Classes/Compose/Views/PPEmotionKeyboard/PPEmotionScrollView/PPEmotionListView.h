@@ -13,4 +13,9 @@
 
 @interface PPEmotionListView : UIView
 
+/**
+ *  图形数组
+ */
+PROPERTYSTRONG(NSArray, emotions)
+
 @end

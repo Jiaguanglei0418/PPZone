@@ -31,9 +31,7 @@ PROPERTYSTRONG(MyButton, selectedBtn)
         [self addTabbarButtonWithTitle:@"最近" type:PPEmotionTabBarBtnTypeRecent];
         
         // 设置默认选中按钮
-        MyButton *defaultBtn = [self addTabbarButtonWithTitle:@"默认" type:PPEmotionTabBarBtnTypeDefault];
-        [self tabbarButtonMethod:defaultBtn];
-        
+        [self addTabbarButtonWithTitle:@"默认" type:PPEmotionTabBarBtnTypeDefault];
         [self addTabbarButtonWithTitle:@"Emoj" type:PPEmotionTabBarBtnTypeEmoj];
         [self addTabbarButtonWithTitle:@"花小花" type:PPEmotionTabBarBtnTypeFlower];
     }
@@ -62,10 +60,25 @@ PROPERTYSTRONG(MyButton, selectedBtn)
     }
     [button setBackgroundImage:[[UIImage imageNamed:image] stretchableImageWithLeftCapWidth:6 topCapHeight:0] forState:UIControlStateNormal];
     [button setBackgroundImage:[[UIImage imageNamed:selectImage] stretchableImageWithLeftCapWidth:6 topCapHeight:0] forState:UIControlStateSelected];
-
     
     [self addSubview:button];
+    
+    // 设置默认选中btn
+//    if (type == PPEmotionTabBarBtnTypeDefault){
+//        [self tabbarButtonMethod:button];
+//    }
+    
     return button;
+}
+
+// 第一次进入的时候keyboard的时候, delegate = nil
+// 重写 set方法
+- (void)setDelegate:(id<PPEmotionTabBarDelegate>)delegate
+{
+    _delegate = delegate;
+    
+    // 拿到默认按钮 -- 设置默认选中 (初始状态, delegate=nil)
+    [self tabbarButtonMethod:(MyButton *)[self viewWithTag:PPEmotionTabBarBtnTypeDefault]];
 }
 
 /**

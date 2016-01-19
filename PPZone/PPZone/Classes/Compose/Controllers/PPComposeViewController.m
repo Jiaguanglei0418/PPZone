@@ -14,6 +14,7 @@
 #import "PPComposePhotosView.h" // 发微博 imageView
 
 #import "PPComposeHttpUtils.h" // 网络请求工具类
+#import "PPEmotionKeyboard.h" // 表情键盘
 
 @interface PPComposeViewController ()<UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextViewDelegate, PPComposeToolbarDelegate>
 
@@ -23,13 +24,18 @@ PROPERTYWEAK(PPTextView, textView)
 PROPERTYWEAK(PPComposeToolbar, toolbar)
 // 图片View
 PROPERTYWEAK(PPComposePhotosView, photosView)
+// 表情键盘
+PROPERTYSTRONG(PPEmotionKeyboard, emotionKeyboard)
+// 键盘切换状态
+PROPERTYASSIGN(BOOL, switchingKeybaord)
 
+// 键盘高度
+PROPERTYASSIGN(CGFloat, keyboardH)
 @end
 
 @implementation PPComposeViewController
-/**
- *  lazy
- */
+#pragma mark - 懒加载
+// textView
 - (PPTextView *)textView
 {
     if (!_textView) {
@@ -56,6 +62,20 @@ PROPERTYWEAK(PPComposePhotosView, photosView)
     return _toolbar;
 }
 
+- (PPEmotionKeyboard *)emotionKeyboard
+{
+    if (!_emotionKeyboard) {
+        _emotionKeyboard = [[PPEmotionKeyboard alloc] init];
+        _emotionKeyboard.width = self.view.width;
+        _emotionKeyboard.height = _keyboardH;
+        // 由于是弱指针, 需要添加到self.view上, 强引用
+//        [self.view addSubview:_emotionKeyboard];
+//        _emotionKeyboard = emotionKeyboard;
+    }
+    return _emotionKeyboard;
+}
+
+
 // 弹出键盘, (减缓卡顿)
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -63,8 +83,7 @@ PROPERTYWEAK(PPComposePhotosView, photosView)
     
     
     // 1. 注册通知, 监听键盘状态
-    [PPNOTICEFICATION addObserver:self selector:@selector(keyboardDidShowMethod:) name:UIKeyboardDidShowNotification object:nil];
-    [PPNOTICEFICATION addObserver:self selector:@selector(keyboardDidHideMethod:) name:UIKeyboardDidHideNotification object:nil];
+    [PPNOTICEFICATION addObserver:self selector:@selector(keyboardDidChangeFrameMethod:) name:UIKeyboardDidChangeFrameNotification object:nil];
     
     // 2. 注册通知, 监听文本改变
     [PPNOTICEFICATION addObserver:self selector:@selector(textViewTextDidChange) name:UITextViewTextDidChangeNotification object:self.textView];
@@ -136,11 +155,46 @@ PROPERTYWEAK(PPComposePhotosView, photosView)
             break;
         }
         case PPComposeToolbarButtonTypeEmotion: { // 表情
-             LogRed(@"PPComposeToolbarButtonTypeEmotion _");
+            // emoj 切换键盘
+            [self switchKeyboard];
+            LogRed(@"PPComposeToolbarButtonTypeEmotion _");
             break;
         }
     }
 }
+
+/**
+ *  切换键盘
+ */
+- (void)switchKeyboard
+{
+    if (self.textView.inputView == nil) { // 当前键盘是系统自带键盘
+        // 设置 inputView
+        self.textView.inputView = self.emotionKeyboard;
+        
+        // 显示键盘图标
+        self.toolbar.showEmotion = NO;
+    } else {
+        self.textView.inputView = nil;
+        
+        // 显示表情图标
+        self.toolbar.showEmotion = YES;
+    }
+    
+    // 设置键盘切换状态
+    self.switchingKeybaord = YES;
+    
+    // 退出键盘
+    [self.textView endEditing:YES];
+//    [self.textView resignFirstResponder];
+    // 再次弹出键盘
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.textView becomeFirstResponder];
+        // 结束切换键盘
+        self.switchingKeybaord = NO;
+    });
+}
+
 
 // 打开相册
 - (void)presentPhotoAlbumViewController
@@ -158,7 +212,6 @@ PROPERTYWEAK(PPComposePhotosView, photosView)
         
     }];
 }
-
 
 // 打开相机
 - (void)presentPhotoCameraViewController
@@ -299,25 +352,27 @@ PROPERTYWEAK(PPComposePhotosView, photosView)
 }
 
 #pragma mark - 监听键盘show hide
-- (void)keyboardDidShowMethod:(NSNotification *)notice
+- (void)keyboardDidChangeFrameMethod:(NSNotification *)notification
 {
-    // 1. 取出键盘的frame
-    CGRect keyboardFrame = [notice.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    // 2. 取出键盘动画时间
-    CGFloat keyboardTime = [notice.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue];
+    // 如果正在切换键盘，就不要执行后面的代码
+    if (self.switchingKeybaord) return;
     
-    [UIView animateWithDuration:keyboardTime animations:^{
-        self.toolbar.transform = CGAffineTransformMakeTranslation(0, -keyboardFrame.size.height);
-    }];
-}
-
-- (void)keyboardDidHideMethod:(NSNotification *)notice
-{
-    CGFloat keyboardTime = [notice.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue];
-    [UIView animateWithDuration:keyboardTime animations:^{
-        self.toolbar.transform = CGAffineTransformConcat(CGAffineTransformMakeRotation(M_PI), CGAffineTransformMakeScale(1.5, 1.5));
-    } completion:^(BOOL finished) {
-        self.toolbar.transform = CGAffineTransformIdentity;
+    NSDictionary *userInfo = notification.userInfo;
+    // 动画的持续时间
+    double duration = [userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    // 键盘的frame
+    CGRect keyboardF = [userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    
+    _keyboardH = keyboardF.size.height;
+    
+    // 执行动画
+    [UIView animateWithDuration:duration animations:^{
+        // 工具条的Y值 == 键盘的Y值 - 工具条的高度
+        if (keyboardF.origin.y > self.view.height) { // 键盘的Y值已经远远超过了控制器view的高度
+            self.toolbar.y = self.view.height - self.toolbar.height;
+        } else {
+            self.toolbar.y = keyboardF.origin.y - self.toolbar.height;
+        }
     }];
 }
 
@@ -325,7 +380,8 @@ PROPERTYWEAK(PPComposePhotosView, photosView)
 // 移除通知
 - (void)dealloc{
     [PPNOTICEFICATION removeObserver:self name:UITextViewTextDidChangeNotification object:self.textView];
-    [PPNOTICEFICATION removeObserver:self name:UIKeyboardDidShowNotification object:nil];
-    [PPNOTICEFICATION removeObserver:self name:UIKeyboardDidHideNotification object:nil];
+    [PPNOTICEFICATION removeObserver:self name:UIKeyboardDidChangeFrameNotification object:nil];
+//    [PPNOTICEFICATION removeObserver:self name:UIKeyboardDidShowNotification object:nil];
+//    [PPNOTICEFICATION removeObserver:self name:UIKeyboardDidHideNotification object:nil];
 }
 @end

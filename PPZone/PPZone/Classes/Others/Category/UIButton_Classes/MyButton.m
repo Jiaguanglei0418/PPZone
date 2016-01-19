@@ -10,6 +10,11 @@
 
 @implementation MyButton
 
++ (MyButton *)buttonWithTitle:(NSString *)title type:(UIButtonType)type target:(id)target andAction:(SEL)sel
+{
+    return [self buttonWithFrame:CGRectZero type:type title:title target:target andAction:sel];
+}
+
 + (MyButton *)addToolbarButtonWithIcon:(NSString *)icon highlightedIcon:(NSString *)highlightedIcon tag:(NSInteger)tag target:(id)target andAction:(SEL)sel
 {
     MyButton *btn = [self buttonWithFrame:CGRectZero type:UIButtonTypeCustom title:nil target:self andAction:sel];
@@ -29,8 +34,15 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
+        
+//        self.adjustsImageWhenHighlighted = NO;
     }
     return self;
+}
+
+
+- (void)setHighlighted:(BOOL)highlighted
+{ // 重写setHighlighted, 取消按钮高亮显示
 }
 
 + (MyButton *)buttonWithFrame:(CGRect)frame type:(UIButtonType)type title:(NSString *)title titleColor:(UIColor *)color image:(UIImage *)image selectedImage:(UIImage *)seleImage backgroundImage:(UIImage *)backImage andBlock:(myBlock)block{

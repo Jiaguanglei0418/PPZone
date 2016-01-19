@@ -18,12 +18,16 @@ typedef void (^myBlock)(MyButton *button);
 
 @property (nonatomic,copy) myBlock tempBlock;
 
-//+(MyButton *)buttonWithFrame:(CGRect)frame type:(UIButtonType)type title:(NSString *)title target:(id)target andAction:(SEL)sel;
++(MyButton *)buttonWithFrame:(CGRect)frame type:(UIButtonType)type title:(NSString *)title target:(id)target andAction:(SEL)sel;
 
 +(MyButton *)buttonWithFrame:(CGRect)frame type:(UIButtonType )type title:(NSString *)title andBlock:(myBlock)block;
 
 
 + (MyButton *)buttonWithFrame:(CGRect)frame type:(UIButtonType)type title:(NSString *)title titleColor:(UIColor *)color image:(UIImage *)image selectedImage:(UIImage *)seleImage backgroundImage:(UIImage *)backImage andBlock:(myBlock)block;
 
+
 + (MyButton *)addToolbarButtonWithIcon:(NSString *)icon highlightedIcon:(NSString *)highlightedIcon tag:(NSInteger)tag target:(id)target andAction:(SEL)sel;
+
++ (MyButton *)buttonWithTitle:(NSString *)title type:(UIButtonType)type target:(id)target andAction:(SEL)sel;
+
 @end

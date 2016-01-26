@@ -94,6 +94,9 @@ PROPERTYASSIGN(CGFloat, keyboardH)
     // 3. 注册通知, 监听表情键盘中表情的点击
     [PPNOTICEFICATION addObserver:self selector:@selector(listPageViewEmotionButtonDidClickedNoticefication:) name:PPEmotionBtnDidSelectedNoticefication object:nil];
     
+    // 4. 注册通知监听删除按钮的点击
+    [PPNOTICEFICATION addObserver:self selector:@selector(listPageViewCancelButtonDidClickedNoticefication:) name:PPEmotionCancelBtnDidSelectedNoticefication object:nil];
+    
     [self.textView becomeFirstResponder];
 }
 
@@ -102,10 +105,18 @@ PROPERTYASSIGN(CGFloat, keyboardH)
 {
     // 隐藏placeholder
     self.textView.placeholder.hidden = YES;
+    [self.navigationItem.rightBarButtonItem setEnabled:YES];
     
     PPEmotionModel *emotion = noticefication.userInfo[PPEmotionBtnDidSelectedKey];
     // 插入表情
     [self.textView insertEmotion:emotion];
+}
+
+
+// 监听表情键盘, 删除按钮的点击
+- (void)listPageViewCancelButtonDidClickedNoticefication:(NSNotification *)noticefication
+{
+    [self.textView deleteBackward];
 }
 
 
@@ -114,6 +125,7 @@ PROPERTYASSIGN(CGFloat, keyboardH)
 {
     [self.textView endEditing:YES];
 }
+
 
 - (void)viewDidLoad
 {
@@ -171,13 +183,12 @@ PROPERTYASSIGN(CGFloat, keyboardH)
         }
         case PPComposeToolbarButtonTypeTrend: { // 关注
             LogRed(@"PPComposeToolbarButtonTypeTrend _");
-
             break;
         }
         case PPComposeToolbarButtonTypeEmotion: { // 表情
             // emoj 切换键盘
             [self switchKeyboard];
-            LogRed(@"PPComposeToolbarButtonTypeEmotion _");
+//            LogRed(@"PPComposeToolbarButtonTypeEmotion _");
             break;
         }
     }
@@ -206,6 +217,9 @@ PROPERTYASSIGN(CGFloat, keyboardH)
     
     // 退出键盘
     [self.textView endEditing:YES];
+    // 结束切换键盘
+//    self.switchingKeybaord = NO;
+    
 //    [self.textView resignFirstResponder];
     // 再次弹出键盘
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -313,7 +327,7 @@ PROPERTYASSIGN(CGFloat, keyboardH)
     // 2.拼接请求参数
     PPComposeHttpUtilsParams *param = [[PPComposeHttpUtilsParams alloc] init];
     param.access_token = [PPAccountManager account].access_token;
-    param.status = self.textView.text;
+    param.status = self.textView.fullText;
     param.formdata = [NSMutableArray array];
     // 拼接照片数据
     NSArray *totalPhotos = [self.photosView totalPhotos];
@@ -341,7 +355,9 @@ PROPERTYASSIGN(CGFloat, keyboardH)
     // 2.拼接请求参数
     PPComposeHttpUtilsParams *param = [[PPComposeHttpUtilsParams alloc] init];
     param.access_token = [PPAccountManager account].access_token;
-    param.status = self.textView.text;
+    param.status = self.textView.fullText;
+    
+    // 发送表情😊
     
     [PPComposeHttpUtils composeParams:param success:^{
         [MBProgressHUD showSuccess:@"发送成功"];
@@ -402,9 +418,7 @@ PROPERTYASSIGN(CGFloat, keyboardH)
 - (void)dealloc{
     [PPNOTICEFICATION removeObserver:self name:UITextViewTextDidChangeNotification object:self.textView];
     [PPNOTICEFICATION removeObserver:self name:UIKeyboardDidChangeFrameNotification object:nil];
-    [PPNOTICEFICATION removeObserver:self name:PPEmotionListPageViewEmotionBtnDidClickedNoticefiaction object:self.textView];
-    
-//    [PPNOTICEFICATION removeObserver:self name:UIKeyboardDidShowNotification object:nil];
-//    [PPNOTICEFICATION removeObserver:self name:UIKeyboardDidHideNotification object:nil];
+    [PPNOTICEFICATION removeObserver:self name:PPEmotionListPageViewEmotionBtnDidClickedNoticefiaction object:nil];
+    [PPNOTICEFICATION removeObserver:self name:PPEmotionCancelBtnDidSelectedNoticefication object:nil];
 }
 @end

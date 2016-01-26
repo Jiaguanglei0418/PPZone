@@ -8,9 +8,10 @@
 
 #import "PPEmotionTextView.h"
 #import "PPEmotionModel.h"
-#import "NSString+Extention.h"
-#import "UITextView+Extention.h"
+#import "NSString+Extention.h" // 显示emoj
+#import "UITextView+Extention.h" // 增加inserAttributeText方法
 
+#import "PPEmotionAttachment.h" // 自定义attachment
 @implementation PPEmotionTextView
 
 - (void)insertEmotion:(PPEmotionModel *)emotion
@@ -20,8 +21,10 @@
         
     }else if (emotion.png){ // 插入图片
         // 拼接图片
-        NSTextAttachment *attach = [[NSTextAttachment alloc] init];
-        attach.image = [UIImage imageNamed:emotion.png];
+        PPEmotionAttachment *attach = [[PPEmotionAttachment alloc] init];
+        attach.emotion = emotion;
+
+        // 设置图片尺寸
         CGFloat attachW = self.font.lineHeight;
         attach.bounds = CGRectMake(0, -4, attachW, attachW);
         
@@ -33,7 +36,6 @@
             [attributedText addAttribute:NSFontAttributeName value:self.font range:NSMakeRange(0, attributedText.length)];
         }];
     }
-
 }
 
 /**
@@ -46,5 +48,26 @@
  *  2. 如果是属性文字(attributeText), 文字大小不受textView.font, 应该用 addAttribute: Value: range: 来设置
  */
 
+- (NSString *)fullText
+{
+    WS(weakSelf);
+    NSMutableString *fullText = [NSMutableString string];
+    
+    [self.attributedText enumerateAttributesInRange:NSMakeRange(0, self.attributedText.length) options:0 usingBlock:^(NSDictionary<NSString *,id> * _Nonnull attrs, NSRange range, BOOL * _Nonnull stop) {
+    
+        // 判断
+        PPEmotionAttachment *attach = attrs[@"NSAttachment"];
+        if (attach) { // 图片表情
+            LogGreen(@"%@", attach.emotion.chs);
+            [fullText appendString:attach.emotion.chs];
+        }else { // 普通字符串, emoj
+            // 获得这个范围内的文字
+            NSAttributedString *str = [weakSelf.attributedText attributedSubstringFromRange:range];
+            [fullText appendString:str.string];
+        }
+    }];
+    
 
+    return fullText;
+}
 @end

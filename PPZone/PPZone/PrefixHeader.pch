@@ -13,10 +13,13 @@
 #import "PPConst.h"
 #import "Header.h"
 
-
+// 表情按钮通知
 #define PPEmotionBtnDidSelectedNoticefication @"PPEmotionBtnDidSelectedNoticefication"
 #define PPEmotionBtnDidSelectedKey @"PPEmotionBtnDidSelectedKey"
 
+// 删除按钮通知
+#define PPEmotionCancelBtnDidSelectedNoticefication @"PPEmotionCancelBtnDidSelectedNoticefication"
+#define PPEmotionCancelBtnDidSelectedKey @"PPEmotionCancelBtnDidSelectedKey"
 
 
 #define PROPERTYWEAK(UIImageView, imageView) @property (nonatomic, weak) UIImageView *imageView;

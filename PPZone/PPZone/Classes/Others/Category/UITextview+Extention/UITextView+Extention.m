@@ -22,10 +22,10 @@
     
     // 拼接其他文字
     NSUInteger loc = self.selectedRange.location;
-    [attributedText insertAttributedString:text atIndex:loc];
-//    [attributedText replaceCharactersInRange:self.selectedRange withAttributedString:text];
+//    [attributedText insertAttributedString:text atIndex:loc];
+    [attributedText replaceCharactersInRange:self.selectedRange withAttributedString:text];
     
-    // 调用外面传进来的代码
+    // 调用外面传进来的代码 - 在赋值之前设置字体
     if (settingBlock) {
         settingBlock(attributedText);
     }

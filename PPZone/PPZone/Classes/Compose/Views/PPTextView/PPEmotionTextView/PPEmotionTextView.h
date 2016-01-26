@@ -12,6 +12,17 @@
 @class PPEmotionModel;
 @interface PPEmotionTextView : PPTextView
 
+/**
+ *  插入表情
+ *
+ */
 - (void)insertEmotion:(PPEmotionModel *)emotion;
+
+
+/**
+ *  返回带表情的 text
+ *
+ */
+- (NSString *)fullText;
 
 @end

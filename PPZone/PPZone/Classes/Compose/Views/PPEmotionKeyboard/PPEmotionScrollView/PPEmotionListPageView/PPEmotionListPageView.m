@@ -8,14 +8,27 @@
 
 #import "PPEmotionListPageView.h"
 #import "PPEmotionModel.h"
-#import "NSString+Emoji.h"
+//#import "NSString+Extention.h"
+#import "PPEmotionButton.h" // 表情按钮
+
+#import "PPEmotionListDetailView.h" // 放大镜
 
 @interface PPEmotionListPageView ()
 
-PROPERTYSTRONG(PPEmotionModel, emotion)
+//PROPERTYSTRONG(PPEmotionModel, emotion)
 
+PROPERTYSTRONG(PPEmotionListDetailView, detailView) // 放大镜
 @end
 @implementation PPEmotionListPageView
+
+- (PPEmotionListDetailView *)detailView
+{
+    if(!_detailView){
+        _detailView = [PPEmotionListDetailView detailView];
+        
+    }
+    return _detailView;
+}
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -33,20 +46,11 @@ PROPERTYSTRONG(PPEmotionModel, emotion)
     // 设置数据
     NSUInteger count = datas.count;
     for (int i = 0; i<count; i++) {
-        UIButton *btn = [[UIButton alloc] init];
-        _emotion = datas[i];
-        
-        if (_emotion.png) { // 有图片
-            [btn setImage:[UIImage imageNamed:_emotion.png] forState:UIControlStateNormal];
-        } else if (_emotion.code) { // 是emoji表情
-            // 设置emoji
-            [btn setTitle:_emotion.code.emoji forState:UIControlStateNormal];
-            btn.titleLabel.font = [UIFont systemFontOfSize:32];
-        }
+        PPEmotionButton *btn = [[PPEmotionButton alloc] init];
+        [self addSubview:btn];
+        btn.emotion = datas[i];
         
         [btn addTarget:self action:@selector(btnDidClickedMethod:) forControlEvents:UIControlEventTouchUpInside];
-        
-        [self addSubview:btn];
     }
     
     // 添加 删除按钮
@@ -56,14 +60,33 @@ PROPERTYSTRONG(PPEmotionModel, emotion)
     [self addSubview:cancelBtn];
 }
 
-- (void)btnDidClickedMethod:(UIButton *)button
+
+
+- (void)btnDidClickedMethod:(PPEmotionButton *)button
 {
-    LogGreen(@"%@", _emotion.png);
+    // 添加放大镜视图 -- 最上面的窗口 (不是keywindow)
+    UIWindow *window = [[UIApplication sharedApplication].windows lastObject];
+    [window addSubview:self.detailView];
     
-    if ([self.delegate respondsToSelector:@selector(emotionListPageViewBtnDidClicked:)]) {
-        [self.delegate emotionListPageViewBtnDidClicked:_emotion];
-    }
+    // 计算出button在 window中的frame
+    CGRect rect = [button convertRect:button.bounds toView:nil];
+    self.detailView.centerX = CGRectGetMidX(rect);
+    self.detailView.y = CGRectGetMidY(rect) - self.detailView.height;
+    
+//    LogYellow(@"%@", NSStringFromCGRect(self.detailView.frame));
+    self.detailView.emotion = button.emotion;
+    
+    // 移除放大镜
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.detailView removeFromSuperview];
+    });
+    
+    // 发通知
+    [PPNOTICEFICATION postNotificationName:PPEmotionBtnDidSelectedNoticefication object:nil userInfo:@{PPEmotionBtnDidSelectedKey : button.emotion}];
+    
 }
+
+
 
 - (void)layoutSubviews
 {
@@ -81,8 +104,5 @@ PROPERTYSTRONG(PPEmotionModel, emotion)
         btn.x = inset + (i%PPEmotionListPageViewMaxCols) * btnW;
         btn.y = inset + (i/PPEmotionListPageViewMaxCols) * btnH;
     }
-    
-    
-    
 }
 @end

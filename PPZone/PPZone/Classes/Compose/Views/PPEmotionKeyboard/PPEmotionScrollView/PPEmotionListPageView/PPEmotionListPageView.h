@@ -17,13 +17,7 @@
 // 每一页的表情个数
 #define PPEmotionListPageViewMaxNum ((PPEmotionListPageViewMaxRows * PPEmotionListPageViewMaxCols) - 1)
 
-@class PPEmotionModel;
-@protocol PPEmotionListPageViewDelegate <NSObject>
 
-@optional
-- (void)emotionListPageViewBtnDidClicked:(PPEmotionModel *)model;
-
-@end
 
 @interface PPEmotionListPageView : UIView
 
@@ -31,8 +25,6 @@
  *  表情模型
  */
 PROPERTYSTRONG(NSArray, datas)
-
-PROPERTYDELEGATE(PPEmotionListPageViewDelegate, delegate)
 
 
 @end

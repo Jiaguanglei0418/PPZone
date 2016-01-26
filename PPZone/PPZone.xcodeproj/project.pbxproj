@@ -51,7 +51,11 @@
 		927ADB0E1C4DDF4700F9287C /* EmotionIcons in Resources */ = {isa = PBXBuildFile; fileRef = 927ADB0D1C4DDF4700F9287C /* EmotionIcons */; };
 		927ADB261C4E07AE00F9287C /* PPEmotionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 927ADB251C4E07AE00F9287C /* PPEmotionModel.m */; };
 		927ADB2A1C4E2FF100F9287C /* PPEmotionListPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 927ADB291C4E2FF100F9287C /* PPEmotionListPageView.m */; };
-		927ADB2E1C4E3D9C00F9287C /* NSString+Emoji.m in Sources */ = {isa = PBXBuildFile; fileRef = 927ADB2D1C4E3D9C00F9287C /* NSString+Emoji.m */; };
+		927ADB321C4F34E900F9287C /* PPEmotionListDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 927ADB311C4F34E900F9287C /* PPEmotionListDetailView.m */; };
+		927ADB341C4F350A00F9287C /* PPEmotionListDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 927ADB331C4F350A00F9287C /* PPEmotionListDetailView.xib */; };
+		92AE40881C55FF0600A11C9C /* PPEmotionButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 92AE40871C55FF0600A11C9C /* PPEmotionButton.m */; };
+		92AE408B1C560C3000A11C9C /* PPDefine.m in Sources */ = {isa = PBXBuildFile; fileRef = 92AE408A1C560C3000A11C9C /* PPDefine.m */; };
+		92AE408F1C5621CA00A11C9C /* PPEmotionTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92AE408E1C5621CA00A11C9C /* PPEmotionTextView.m */; };
 		92B2D24A1C03079C00335F36 /* PPAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B2D2491C03079C00335F36 /* PPAuthViewController.m */; };
 		92B2D26C1C032CE000335F36 /* PPAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B2D26B1C032CE000335F36 /* PPAccount.m */; };
 		92B2D2731C035FC800335F36 /* PPAccountManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B2D2721C035FC800335F36 /* PPAccountManager.m */; };
@@ -164,8 +168,15 @@
 		927ADB251C4E07AE00F9287C /* PPEmotionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPEmotionModel.m; sourceTree = "<group>"; };
 		927ADB281C4E2FF100F9287C /* PPEmotionListPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPEmotionListPageView.h; sourceTree = "<group>"; };
 		927ADB291C4E2FF100F9287C /* PPEmotionListPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPEmotionListPageView.m; sourceTree = "<group>"; };
-		927ADB2C1C4E3D9C00F9287C /* NSString+Emoji.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Emoji.h"; sourceTree = "<group>"; };
-		927ADB2D1C4E3D9C00F9287C /* NSString+Emoji.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Emoji.m"; sourceTree = "<group>"; };
+		927ADB301C4F34E900F9287C /* PPEmotionListDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPEmotionListDetailView.h; sourceTree = "<group>"; };
+		927ADB311C4F34E900F9287C /* PPEmotionListDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPEmotionListDetailView.m; sourceTree = "<group>"; };
+		927ADB331C4F350A00F9287C /* PPEmotionListDetailView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PPEmotionListDetailView.xib; sourceTree = "<group>"; };
+		92AE40861C55FF0600A11C9C /* PPEmotionButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPEmotionButton.h; sourceTree = "<group>"; };
+		92AE40871C55FF0600A11C9C /* PPEmotionButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPEmotionButton.m; sourceTree = "<group>"; };
+		92AE40891C560C3000A11C9C /* PPDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPDefine.h; sourceTree = "<group>"; };
+		92AE408A1C560C3000A11C9C /* PPDefine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPDefine.m; sourceTree = "<group>"; };
+		92AE408D1C5621CA00A11C9C /* PPEmotionTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPEmotionTextView.h; sourceTree = "<group>"; };
+		92AE408E1C5621CA00A11C9C /* PPEmotionTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPEmotionTextView.m; sourceTree = "<group>"; };
 		92B2D2481C03079C00335F36 /* PPAuthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPAuthViewController.h; sourceTree = "<group>"; };
 		92B2D2491C03079C00335F36 /* PPAuthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPAuthViewController.m; sourceTree = "<group>"; };
 		92B2D26A1C032CE000335F36 /* PPAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPAccount.h; sourceTree = "<group>"; };
@@ -506,7 +517,6 @@
 			isa = PBXGroup;
 			children = (
 				920893A41BFDD337003560D6 /* Foundation+Log.m */,
-				927ADB2B1C4E3D8E00F9287C /* NSString+Emoj */,
 				920893A51BFDD337003560D6 /* NSDate+Extention */,
 				920893AA1BFDD337003560D6 /* NSObject+Extention */,
 				920893AD1BFDD337003560D6 /* NSString+Extention */,
@@ -547,8 +557,6 @@
 		920893AD1BFDD337003560D6 /* NSString+Extention */ = {
 			isa = PBXGroup;
 			children = (
-				927ADB2C1C4E3D9C00F9287C /* NSString+Emoji.h */,
-				927ADB2D1C4E3D9C00F9287C /* NSString+Emoji.m */,
 				920893AE1BFDD337003560D6 /* NSString+Extention.h */,
 				920893AF1BFDD337003560D6 /* NSString+Extention.m */,
 			);
@@ -818,6 +826,7 @@
 		9255188E1C49062300C5EF77 /* PPTextView */ = {
 			isa = PBXGroup;
 			children = (
+				92AE408C1C5621B900A11C9C /* PPEmotionTextView */,
 				9255188F1C49062300C5EF77 /* PPTextView.h */,
 				925518901C49062300C5EF77 /* PPTextView.m */,
 			);
@@ -846,6 +855,8 @@
 		9274E8DC1C4C8BCA00A92DB1 /* PPEmotionScrollView */ = {
 			isa = PBXGroup;
 			children = (
+				92AE40851C55FEEF00A11C9C /* PPEmotionButton */,
+				927ADB2F1C4F34D600F9287C /* PPEmotionListDetailView */,
 				927ADB271C4E2FC900F9287C /* PPEmotionListPageView */,
 				9274E8E01C4C8C6500A92DB1 /* PPEmotionListView.h */,
 				9274E8E11C4C8C6500A92DB1 /* PPEmotionListView.m */,
@@ -872,11 +883,32 @@
 			path = PPEmotionListPageView;
 			sourceTree = "<group>";
 		};
-		927ADB2B1C4E3D8E00F9287C /* NSString+Emoj */ = {
+		927ADB2F1C4F34D600F9287C /* PPEmotionListDetailView */ = {
 			isa = PBXGroup;
 			children = (
+				927ADB301C4F34E900F9287C /* PPEmotionListDetailView.h */,
+				927ADB311C4F34E900F9287C /* PPEmotionListDetailView.m */,
+				927ADB331C4F350A00F9287C /* PPEmotionListDetailView.xib */,
 			);
-			path = "NSString+Emoj";
+			path = PPEmotionListDetailView;
+			sourceTree = "<group>";
+		};
+		92AE40851C55FEEF00A11C9C /* PPEmotionButton */ = {
+			isa = PBXGroup;
+			children = (
+				92AE40861C55FF0600A11C9C /* PPEmotionButton.h */,
+				92AE40871C55FF0600A11C9C /* PPEmotionButton.m */,
+			);
+			path = PPEmotionButton;
+			sourceTree = "<group>";
+		};
+		92AE408C1C5621B900A11C9C /* PPEmotionTextView */ = {
+			isa = PBXGroup;
+			children = (
+				92AE408D1C5621CA00A11C9C /* PPEmotionTextView.h */,
+				92AE408E1C5621CA00A11C9C /* PPEmotionTextView.m */,
+			);
+			path = PPEmotionTextView;
 			sourceTree = "<group>";
 		};
 		92B2D2461C03078600335F36 /* OAuth */ = {
@@ -963,6 +995,8 @@
 				92BDFE1C1BF06ED300FF548D /* Info.plist */,
 				92BDFE2F1BF08BEE00FF548D /* PrefixHeader.pch */,
 				92527BFF1C3FC23A00377FC6 /* Header.h */,
+				92AE40891C560C3000A11C9C /* PPDefine.h */,
+				92AE408A1C560C3000A11C9C /* PPDefine.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -1180,6 +1214,7 @@
 				92BDFE161BF06ED300FF548D /* Main.storyboard in Resources */,
 				92DFAB921C059F6F00FEB988 /* PPLoadMoreFooter.xib in Resources */,
 				927ADB0E1C4DDF4700F9287C /* EmotionIcons in Resources */,
+				927ADB341C4F350A00F9287C /* PPEmotionListDetailView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1232,7 +1267,6 @@
 				92DFABA21C05B16800FEB988 /* PPToolbar.m in Sources */,
 				920893FA1BFDD337003560D6 /* MBProgressHUD+MJ.m in Sources */,
 				920893F91BFDD337003560D6 /* UIWindow+Extension.m in Sources */,
-				927ADB2E1C4E3D9C00F9287C /* NSString+Emoji.m in Sources */,
 				92DFAB821C044E3F00FEB988 /* PPStatus.m in Sources */,
 				920893DE1BFDD337003560D6 /* PPHomeViewController.m in Sources */,
 				92B2D26C1C032CE000335F36 /* PPAccount.m in Sources */,
@@ -1243,6 +1277,7 @@
 				92F219791C46293E009F32A7 /* PPBaseParams.m in Sources */,
 				920893EF1BFDD337003560D6 /* UIBarButtonItem+Extension.m in Sources */,
 				92B2D2771C035FE900335F36 /* PPConst.m in Sources */,
+				92AE408B1C560C3000A11C9C /* PPDefine.m in Sources */,
 				925518911C49062300C5EF77 /* PPComposePhotosView.m in Sources */,
 				920893E71BFDD337003560D6 /* PPMessageViewController.m in Sources */,
 				92F219CA1C489013009F32A7 /* PPUserInfoHttpUtils.m in Sources */,
@@ -1259,6 +1294,7 @@
 				92527BFB1C3F980B00377FC6 /* PPComposeViewController.m in Sources */,
 				920893DF1BFDD337003560D6 /* PPDropdownViewController.m in Sources */,
 				920893F01BFDD337003560D6 /* MyButton.m in Sources */,
+				92AE40881C55FF0600A11C9C /* PPEmotionButton.m in Sources */,
 				920893E01BFDD337003560D6 /* PPDropdownMenu.m in Sources */,
 				920893F31BFDD337003560D6 /* UIResponder+Router.m in Sources */,
 				920893E91BFDD337003560D6 /* PPNewFeatherViewController.m in Sources */,
@@ -1278,6 +1314,7 @@
 				920893F41BFDD337003560D6 /* UITextField+Extention.m in Sources */,
 				9274E8DA1C4C8AC200A92DB1 /* PPEmotionKeyboard.m in Sources */,
 				927ADB261C4E07AE00F9287C /* PPEmotionModel.m in Sources */,
+				927ADB321C4F34E900F9287C /* PPEmotionListDetailView.m in Sources */,
 				9274E8E21C4C8C6500A92DB1 /* PPEmotionListView.m in Sources */,
 				92DFAB971C059FA400FEB988 /* PPStatusCell.m in Sources */,
 				92DFAB931C059F6F00FEB988 /* PPTitleButton.m in Sources */,
@@ -1286,6 +1323,7 @@
 				920893F11BFDD337003560D6 /* UIColor+Random.m in Sources */,
 				92DFAB7F1C044E0600FEB988 /* PPUser.m in Sources */,
 				920893E31BFDD337003560D6 /* PPTabBarController.m in Sources */,
+				92AE408F1C5621CA00A11C9C /* PPEmotionTextView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

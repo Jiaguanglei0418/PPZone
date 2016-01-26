@@ -14,6 +14,10 @@
 #import "Header.h"
 
 
+#define PPEmotionBtnDidSelectedNoticefication @"PPEmotionBtnDidSelectedNoticefication"
+#define PPEmotionBtnDidSelectedKey @"PPEmotionBtnDidSelectedKey"
+
+
 
 #define PROPERTYWEAK(UIImageView, imageView) @property (nonatomic, weak) UIImageView *imageView;
 #define PROPERTYSTRONG(UIImageView, imageView) @property (nonatomic, strong) UIImageView *imageView;

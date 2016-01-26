@@ -9,17 +9,20 @@
 #import "PPComposeViewController.h"
 #import "PPAccountManager.h"
 #import "UIBarButtonItem+Extension.h"
-#import "PPTextView.h" // 输入框
+
 #import "PPComposeToolbar.h" // 工具条
 #import "PPComposePhotosView.h" // 发微博 imageView
 
 #import "PPComposeHttpUtils.h" // 网络请求工具类
 #import "PPEmotionKeyboard.h" // 表情键盘
 
+#import "PPEmotionTextView.h" // 显示emotion
+
+
 @interface PPComposeViewController ()<UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextViewDelegate, PPComposeToolbarDelegate>
 
 // textView
-PROPERTYWEAK(PPTextView, textView)
+PROPERTYWEAK(PPEmotionTextView, textView)
 // 工具条
 PROPERTYWEAK(PPComposeToolbar, toolbar)
 // 图片View
@@ -36,10 +39,10 @@ PROPERTYASSIGN(CGFloat, keyboardH)
 @implementation PPComposeViewController
 #pragma mark - 懒加载
 // textView
-- (PPTextView *)textView
+- (PPEmotionTextView *)textView
 {
     if (!_textView) {
-        PPTextView *textView = [[PPTextView alloc] init];
+        PPEmotionTextView *textView = [[PPEmotionTextView alloc] init];
         textView.frame = self.view.bounds;
         textView.placeholder.text = @" 请输入微博内容 ...";
         [self.view addSubview:textView];
@@ -88,8 +91,23 @@ PROPERTYASSIGN(CGFloat, keyboardH)
     // 2. 注册通知, 监听文本改变
     [PPNOTICEFICATION addObserver:self selector:@selector(textViewTextDidChange) name:UITextViewTextDidChangeNotification object:self.textView];
     
+    // 3. 注册通知, 监听表情键盘中表情的点击
+    [PPNOTICEFICATION addObserver:self selector:@selector(listPageViewEmotionButtonDidClickedNoticefication:) name:PPEmotionBtnDidSelectedNoticefication object:nil];
+    
     [self.textView becomeFirstResponder];
 }
+
+#pragma mark - 监听表情键盘, 表情按钮点击
+- (void)listPageViewEmotionButtonDidClickedNoticefication:(NSNotification *)noticefication
+{
+    // 隐藏placeholder
+    self.textView.placeholder.hidden = YES;
+    
+    PPEmotionModel *emotion = noticefication.userInfo[PPEmotionBtnDidSelectedKey];
+    // 插入表情
+    [self.textView insertEmotion:emotion];
+}
+
 
 // 拖动textView, 键盘消失
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
@@ -116,6 +134,7 @@ PROPERTYASSIGN(CGFloat, keyboardH)
     [self setupPhotosView];
 
 }
+
 #pragma mark - 设置照片内容
 - (void)setupPhotosView
 {
@@ -133,6 +152,7 @@ PROPERTYASSIGN(CGFloat, keyboardH)
 {
     self.toolbar.delegate = self;
 }
+
 #pragma mark -- toolbarDeleagete
 - (void)composeToolbar:(PPComposeToolbar *)toolbar didClickedToolbarButton:(PPComposeToolbarButtonType)composeToolbarButtonType
 {
@@ -336,7 +356,7 @@ PROPERTYASSIGN(CGFloat, keyboardH)
     // 1. 创建textView
     self.textView.delegate = self;
     
-    
+    // 2. 插入表情
 }
 
 // 监听文字改变
@@ -350,6 +370,7 @@ PROPERTYASSIGN(CGFloat, keyboardH)
         [self.navigationItem.rightBarButtonItem setEnabled:NO];
     }
 }
+
 
 #pragma mark - 监听键盘show hide
 - (void)keyboardDidChangeFrameMethod:(NSNotification *)notification
@@ -381,6 +402,8 @@ PROPERTYASSIGN(CGFloat, keyboardH)
 - (void)dealloc{
     [PPNOTICEFICATION removeObserver:self name:UITextViewTextDidChangeNotification object:self.textView];
     [PPNOTICEFICATION removeObserver:self name:UIKeyboardDidChangeFrameNotification object:nil];
+    [PPNOTICEFICATION removeObserver:self name:PPEmotionListPageViewEmotionBtnDidClickedNoticefiaction object:self.textView];
+    
 //    [PPNOTICEFICATION removeObserver:self name:UIKeyboardDidShowNotification object:nil];
 //    [PPNOTICEFICATION removeObserver:self name:UIKeyboardDidHideNotification object:nil];
 }

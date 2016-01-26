@@ -358,7 +358,6 @@ PROPERTYASSIGN(CGFloat, keyboardH)
     param.status = self.textView.fullText;
     
     // 发送表情😊
-    
     [PPComposeHttpUtils composeParams:param success:^{
         [MBProgressHUD showSuccess:@"发送成功"];
     } failure:^(NSError *error) {

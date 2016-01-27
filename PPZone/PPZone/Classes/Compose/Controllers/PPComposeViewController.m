@@ -110,6 +110,9 @@ PROPERTYASSIGN(CGFloat, keyboardH)
     PPEmotionModel *emotion = noticefication.userInfo[PPEmotionBtnDidSelectedKey];
     // 插入表情
     [self.textView insertEmotion:emotion];
+    
+    // 保存到最近使用表情中
+    
 }
 
 

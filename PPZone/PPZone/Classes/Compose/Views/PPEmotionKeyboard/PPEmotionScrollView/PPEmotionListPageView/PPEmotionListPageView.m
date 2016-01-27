@@ -12,6 +12,7 @@
 #import "PPEmotionButton.h" // 表情按钮
 
 #import "PPEmotionListDetailView.h" // 放大镜
+#import "PPComposeDBUtils.h" // 存储表情
 
 @interface PPEmotionListPageView ()
 
@@ -63,6 +64,8 @@ PROPERTYWEAK(UIButton, cancelBtn)
         
         [btn addTarget:self action:@selector(btnDidClickedMethod:) forControlEvents:UIControlEventTouchUpInside];
     }
+    
+    [self setNeedsLayout];
 }
 
 /**
@@ -91,7 +94,7 @@ PROPERTYWEAK(UIButton, cancelBtn)
             // 如果长按手势结束, 手指还在按钮上, 发送通知
             if (btn) {
                 // 发通知
-                [PPNOTICEFICATION postNotificationName:PPEmotionBtnDidSelectedNoticefication object:nil userInfo:@{PPEmotionBtnDidSelectedKey : btn.emotion}];
+                [self selectEmotion:btn.emotion];
             }
             break;
         }
@@ -141,7 +144,19 @@ PROPERTYWEAK(UIButton, cancelBtn)
     });
     
     // 发通知
-    [PPNOTICEFICATION postNotificationName:PPEmotionBtnDidSelectedNoticefication object:nil userInfo:@{PPEmotionBtnDidSelectedKey : button.emotion}];
+    [self selectEmotion:button.emotion];
+}
+
+/**
+ *  发通知
+ **/
+- (void)selectEmotion:(PPEmotionModel *)emotion
+{
+    // 2. 保存到沙盒 - 最近使用
+    [PPComposeDBUtils addEmotion:emotion];
+
+    // 1. 发通知
+    [PPNOTICEFICATION postNotificationName:PPEmotionBtnDidSelectedNoticefication object:nil userInfo:@{PPEmotionBtnDidSelectedKey : emotion}];
     
 }
 

@@ -8,8 +8,8 @@
 
 #import "PPEmotionListView.h"
 #import "PPEmotionListPageView.h"
-
-#define PPEmotionListViewPageNumber ceilf((CGFloat)(self.emotions.count / 20))
+// [注意]: 写成小数否则, 0.5只能取到0
+#define PPEmotionListViewPageNumber ceilf((CGFloat)(self.emotions.count / 20.0))
 
 @interface PPEmotionListView ()<UIScrollViewDelegate>
 
@@ -45,6 +45,8 @@ PROPERTYWEAK(UIPageControl, pageCon)
         [page setValue:[UIImage imageNamed:@"compose_keyboard_dot_selected"] forKeyPath:@"currentPageImage"];
         page.numberOfPages = PPEmotionListViewPageNumber;
         page.currentPage = 0;
+        // 当只有一页时, 自动隐藏
+        page.hidesForSinglePage = YES;
         [self addSubview:page];
         _pageCon = page;
     }
@@ -103,6 +105,9 @@ PROPERTYWEAK(UIPageControl, pageCon)
 {
     _emotions = emotions;
     
+    // 删除之前的视图, 重新计算
+    [self.scrollview.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    
     // 1. 设置页数
     self.pageCon.numberOfPages = PPEmotionListViewPageNumber;
     
@@ -127,11 +132,13 @@ PROPERTYWEAK(UIPageControl, pageCon)
         // 设置表情
         pageView.datas = [emotions subarrayWithRange:range];
         
+//        LogGreen(@"count --- %ld", pageView.datas.count);
 //        pageView.backgroundColor = PPCOLOR_RANDOM;
         [self.scrollview addSubview:pageView];
     }
     
-    // 3.
+    // 3. 重新计算frame
+    [self setNeedsLayout];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView

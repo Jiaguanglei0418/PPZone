@@ -17,6 +17,8 @@
  <key>png</key>
  <string>lxh_xiaohaha.png</string>
  */
+
+
 @interface PPEmotionModel : NSObject
 // 文字描述
 PROPERTYCOPY(NSString, chs)
@@ -24,4 +26,6 @@ PROPERTYCOPY(NSString, chs)
 PROPERTYCOPY(NSString, png)
 // emoj - 编码
 PROPERTYCOPY(NSString, code)
+
+
 @end

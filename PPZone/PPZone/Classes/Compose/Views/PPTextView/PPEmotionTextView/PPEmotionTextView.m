@@ -58,7 +58,7 @@
         // 判断
         PPEmotionAttachment *attach = attrs[@"NSAttachment"];
         if (attach) { // 图片表情
-            LogGreen(@"%@", attach.emotion.chs);
+//            LogGreen(@"%@", attach.emotion.chs);
             [fullText appendString:attach.emotion.chs];
         }else { // 普通字符串, emoj
             // 获得这个范围内的文字

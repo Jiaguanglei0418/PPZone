@@ -45,10 +45,10 @@
 		925518911C49062300C5EF77 /* PPComposePhotosView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9255188A1C49062300C5EF77 /* PPComposePhotosView.m */; };
 		925518921C49062300C5EF77 /* PPComposeToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 9255188D1C49062300C5EF77 /* PPComposeToolbar.m */; };
 		925518931C49062300C5EF77 /* PPTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 925518901C49062300C5EF77 /* PPTextView.m */; };
+		927441001C58D3B8006AD52F /* EmotionIcons in Resources */ = {isa = PBXBuildFile; fileRef = 927440FF1C58D3B8006AD52F /* EmotionIcons */; };
 		9274E8DA1C4C8AC200A92DB1 /* PPEmotionKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 9274E8D91C4C8AC200A92DB1 /* PPEmotionKeyboard.m */; };
 		9274E8DF1C4C8C2300A92DB1 /* PPEmotionTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 9274E8DE1C4C8C2300A92DB1 /* PPEmotionTabBar.m */; };
 		9274E8E21C4C8C6500A92DB1 /* PPEmotionListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9274E8E11C4C8C6500A92DB1 /* PPEmotionListView.m */; };
-		927ADB0E1C4DDF4700F9287C /* EmotionIcons in Resources */ = {isa = PBXBuildFile; fileRef = 927ADB0D1C4DDF4700F9287C /* EmotionIcons */; };
 		927ADB261C4E07AE00F9287C /* PPEmotionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 927ADB251C4E07AE00F9287C /* PPEmotionModel.m */; };
 		927ADB2A1C4E2FF100F9287C /* PPEmotionListPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 927ADB291C4E2FF100F9287C /* PPEmotionListPageView.m */; };
 		927ADB321C4F34E900F9287C /* PPEmotionListDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 927ADB311C4F34E900F9287C /* PPEmotionListDetailView.m */; };
@@ -159,13 +159,13 @@
 		9255188D1C49062300C5EF77 /* PPComposeToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPComposeToolbar.m; sourceTree = "<group>"; };
 		9255188F1C49062300C5EF77 /* PPTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPTextView.h; sourceTree = "<group>"; };
 		925518901C49062300C5EF77 /* PPTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPTextView.m; sourceTree = "<group>"; };
+		927440FF1C58D3B8006AD52F /* EmotionIcons */ = {isa = PBXFileReference; lastKnownFileType = folder; path = EmotionIcons; sourceTree = "<group>"; };
 		9274E8D81C4C8AC200A92DB1 /* PPEmotionKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPEmotionKeyboard.h; sourceTree = "<group>"; };
 		9274E8D91C4C8AC200A92DB1 /* PPEmotionKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPEmotionKeyboard.m; sourceTree = "<group>"; };
 		9274E8DD1C4C8C2300A92DB1 /* PPEmotionTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPEmotionTabBar.h; sourceTree = "<group>"; };
 		9274E8DE1C4C8C2300A92DB1 /* PPEmotionTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPEmotionTabBar.m; sourceTree = "<group>"; };
 		9274E8E01C4C8C6500A92DB1 /* PPEmotionListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPEmotionListView.h; sourceTree = "<group>"; };
 		9274E8E11C4C8C6500A92DB1 /* PPEmotionListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPEmotionListView.m; sourceTree = "<group>"; };
-		927ADB0D1C4DDF4700F9287C /* EmotionIcons */ = {isa = PBXFileReference; lastKnownFileType = folder; path = EmotionIcons; sourceTree = "<group>"; };
 		927ADB241C4E07AE00F9287C /* PPEmotionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPEmotionModel.h; sourceTree = "<group>"; };
 		927ADB251C4E07AE00F9287C /* PPEmotionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPEmotionModel.m; sourceTree = "<group>"; };
 		927ADB281C4E2FF100F9287C /* PPEmotionListPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPEmotionListPageView.h; sourceTree = "<group>"; };
@@ -1013,7 +1013,7 @@
 		92BDFE0B1BF06ED300FF548D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				927ADB0D1C4DDF4700F9287C /* EmotionIcons */,
+				927440FF1C58D3B8006AD52F /* EmotionIcons */,
 				92BDFE141BF06ED300FF548D /* Main.storyboard */,
 				92BDFE171BF06ED300FF548D /* Assets.xcassets */,
 				9208936A1BFDD31D003560D6 /* main.m */,
@@ -1236,10 +1236,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				927441001C58D3B8006AD52F /* EmotionIcons in Resources */,
 				92BDFE181BF06ED300FF548D /* Assets.xcassets in Resources */,
 				92BDFE161BF06ED300FF548D /* Main.storyboard in Resources */,
 				92DFAB921C059F6F00FEB988 /* PPLoadMoreFooter.xib in Resources */,
-				927ADB0E1C4DDF4700F9287C /* EmotionIcons in Resources */,
 				927ADB341C4F350A00F9287C /* PPEmotionListDetailView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

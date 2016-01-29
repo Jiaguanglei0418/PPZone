@@ -6,16 +6,16 @@
 //  Copyright © 2016年 roseonly. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
-@interface PPDefine : NSObject
-
 
 /**
  *  点击表情键盘中的表情按钮通知
  */
-extern NSString *const PPEmotionListPageViewEmotionBtnDidClickedNoticefiaction;
+extern NSString *const PPEmotionBtnDidSelectedNoticefication;
+extern NSString *const PPEmotionBtnDidSelectedKey;
 
+/**
+ *  删除按钮通知
+ */
+extern NSString *const PPEmotionCancelBtnDidSelectedNoticefication;
+extern NSString *const PPEmotionCancelBtnDidSelectedKey;
 
-
-@end

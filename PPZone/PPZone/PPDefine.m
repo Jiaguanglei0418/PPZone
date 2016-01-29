@@ -6,11 +6,13 @@
 //  Copyright © 2016年 roseonly. All rights reserved.
 //
 
-#import "PPDefine.h"
-
-@implementation PPDefine
-
-NSString *const PPEmotionListPageViewEmotionBtnDidClickedNoticefiaction = @"PPEmotionListPageViewEmotionBtnDidClickedNoticefiaction";
+#import <Foundation/Foundation.h>
 
 
-@end
+NSString *const PPEmotionBtnDidSelectedNoticefication = @"PPEmotionBtnDidSelectedNoticefication";
+NSString *const PPEmotionBtnDidSelectedKey = @"PPEmotionBtnDidSelectedKey";
+
+
+NSString *const PPEmotionCancelBtnDidSelectedNoticefication = @"PPEmotionCancelBtnDidSelectedNoticefication";
+NSString *const PPEmotionCancelBtnDidSelectedKey = @"PPEmotionCancelBtnDidSelectedKey";
+

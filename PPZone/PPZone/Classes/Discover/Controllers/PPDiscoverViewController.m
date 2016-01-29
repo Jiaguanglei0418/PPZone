@@ -38,6 +38,26 @@
     
     CGRect newFrame = [red.superview convertRect:red.frame toView:self.view];
     LogRed(@"%@", NSStringFromCGRect(newFrame));
+    
+    
+    
+    
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn.centerX = self.view.centerX;
+    btn.centerY = self.view.height * 0.7;
+    btn.width = 50;
+    btn.height = 50;
+    btn.hidden = NO;
+    [btn setImage:[[UIImage imageNamed:@"lxh_zana.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
+    //    btn.imageView.image = [UIImage imageNamed:@"lxh_zana.png"];
+    //    btn.imageView.frame = btn.bounds;
+    btn.backgroundColor = [UIColor greenColor];
+    btn.titleLabel.text = @"123";
+    LogGreen(@"%@", NSStringFromCGRect(btn.frame));
+    LogRed(@"%@", btn.currentImage);
+    [self.view addSubview:btn];
+
+    
 }
 
 

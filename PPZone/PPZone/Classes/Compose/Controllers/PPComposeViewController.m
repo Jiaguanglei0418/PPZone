@@ -420,7 +420,7 @@ PROPERTYASSIGN(CGFloat, keyboardH)
 - (void)dealloc{
     [PPNOTICEFICATION removeObserver:self name:UITextViewTextDidChangeNotification object:self.textView];
     [PPNOTICEFICATION removeObserver:self name:UIKeyboardDidChangeFrameNotification object:nil];
-    [PPNOTICEFICATION removeObserver:self name:PPEmotionListPageViewEmotionBtnDidClickedNoticefiaction object:nil];
+    [PPNOTICEFICATION removeObserver:self name:PPEmotionBtnDidSelectedKey object:nil];
     [PPNOTICEFICATION removeObserver:self name:PPEmotionCancelBtnDidSelectedNoticefication object:nil];
 }
 @end
